@@ -1,0 +1,161 @@
+{% extends 'base.html' %}
+{% block content %}
+
+    <!-- page-title -->
+    <section class="page-title centred" style="background-image: url(../static/main/images/background/page-title.jpg);">
+        <div class="container">
+            <div class="content-box">
+            <!-- EDIT START-->
+                <div class="title">{JUDUL RISET}</div>
+            <!-- EDIT END -->
+                <ul class="bread-crumb">
+                    <li><a href="https://riset.informatika.umm.ac.id">Home</a></li>
+                    <li><a href="https://riset.informatika.umm.ac.id/area_of_interest/1">Data Science</a></li>
+                    <li><a href="https://riset.informatika.umm.ac.id/area_of_interest/topics/1">Research Topics</a></li>
+                <!-- EDIT START-->
+                    <li><a href="https://riset.informatika.umm.ac.id/area_of_interest/topics/{TOPIC_ID}/all">{NAMA TOPIC}</a></li>
+                    <li><a href="/data_science_product/{PRODUCT_ID}/select">Predict</a></li>
+                    <li><a href="/data_science_product/{PRODUCT_ID}/compare">Compare</a></li>
+
+                    <!-- JIKA HANYA ADA 1 MODEL GUNAKAN KODE DIBAWAH INI -->
+                    
+                    <li><a href="https://riset.informatika.umm.ac.id/area_of_interest/topics/{TOPIC_ID}/all">{NAMA TOPIC}</a></li>
+                    <li>Product</li>
+                    
+                <!-- EDIT END -->
+                </ul>
+            </div>
+        </div>
+    </section>
+    <!-- page-title end -->
+
+    <!-- form-section -->
+    <section class="contact-section" style="padding-top:50px;" id="predict1">
+        <div class="container">
+            <div class="title-box centred" >
+                <div class="sec-title"><a class="sec-title" href="#predict1">Upload an Image</a> / <a class="sec-title" href="#predict">Select an Image</a><br> to Classify</div><br>
+            </div>
+        <!-- EDIT START-->
+            <form class="login100-form validate-form" action="/data_science_product/{PRODUCT_ID}/pred_selects" method=post enctype=multipart/form-data>
+        <!-- EDIT END -->
+                <div class="row" style=" width: 29%; margin: auto; padding: 15px;" >
+                    <div class="column" >
+                        <div class="form-check form-check-inline">
+                            <p style="font-weight: bold; color: black;">Select Model : </p>
+                        </div>   
+                    </div>
+                    <div class="column" >
+                        <div class="form-check form-check-inline"> 
+                            <select name="select_model" id="selected_model">
+                            <!-- EDIT START-->
+                                <option value='model1'>Nama Model 1</option>
+                                <option value='model2'>Nama Model 2</option>
+                                <option value='model_js1'>Nama json Model 1</option>
+                                <option value='model_js2'>Nama json Model 2</option>
+                            <!-- EDIT END -->
+                            </select>
+                        </div>   
+                    </div>
+                </div>
+                <img id="image-preview" alt="image preview" src="#" style="width: 35%;"/>
+                <div class="container-login100-form-btn">
+                    <div class="wrap-input100 validate-input" data-validate="Image file is required" id="input">
+                        <input class="input100" id="image-source" name="file" onchange="previewImage();" type="file"
+                            alt="Input Image" accept="image/jpeg,image/jpg,image/png">
+                        <span class="focus-input100"></span>
+                        <span class="symbol-input100">
+                            <i class="fa fa-file" aria-hidden="true"></i>
+                        </span>
+                    </div>
+                </div>
+                <div class="container-login100-form-btn">
+                    <button class="login100-form-btn" type="submit">
+                        Execute
+                    </button>
+                </div>
+            </form>
+        </div>
+    </section>
+    <!-- form-section end -->
+
+    <!-- grid-section -->
+    <section class="contact-section centred" style="padding-top:100px;" id="predict">
+        <div class="container">
+            <div class="title-box centred" >
+                <div class="sec-title">Select an Image to Predict</div><br>
+            </div>
+        <!-- EDIT START-->
+            <form action="/data_science_product/{PRODUCT_ID}/pred_select" method="POST">
+        <!-- EDIT END -->
+                <div class="row" style=" width: 29%; margin: auto; padding: 15px;" >
+                    <div class="column" >
+                        <div class="form-check form-check-inline">
+                            <p style="font-weight: bold; color: black;">Select Model : </p>
+                        </div>   
+                    </div>
+                    <div class="column" >
+                        <div class="form-check form-check-inline"> 
+                            <select name="select_model" id="selected_model">
+                            <!-- EDIT START-->
+                                <option value='model1'>Nama Model 1</option>
+                                <option value='model2'>Nama Model 2</option>
+                                <option value='model_js1'>Nama json Model 1</option>
+                                <option value='model_js2'>Nama json Model 2</option>
+                            <!-- EDIT END -->
+                            </select>
+                        </div>   
+                    </div>
+                </div>
+            <!-- EDIT START-->
+                <div class="row">
+                    <div class="column" style="background-color:rgb(235, 235, 235);">
+                        <p style="text-align: center;">{LABEL DATA}</p>
+                        <input type="hidden" name="input_image" id="count" value="static/main/images/predict/{NIM}/gambar1.jpg" />
+                        <input type="image" name="submit" onclick="change('static/main/images/predict/{NIM}/gambar1.jpg')" style="height: 235px;width: 235px;padding-left: 10%;padding-right: 10%;padding-bottom: 10%;" src="{{ url_for('static', filename='main/images/predict/{NIM}/gambar1.jpg')}}"/>
+                    </div>
+                    <div class="column" style="background-color:rgb(235, 235, 235);">
+                        <p style="text-align: center;">{LABEL DATA}</p>
+                        <input type="image" name="submit" onclick="change('static/main/images/predict/{NIM}/gambar2.jpg')" style="height: 235px;width: 235px;padding-left: 10%;padding-right: 10%;padding-bottom: 10%;" src="{{ url_for('static', filename='main/images/predict/{NIM}/gambar2.jpg')}}"/>
+                    </div>
+                    <div class="column" style="background-color:rgb(235, 235, 235);">
+                        <p style="text-align: center;">{LABEL DATA}</p>
+                        <input type="image" name="submit" onclick="change('static/main/images/predict/{NIM}/gambar3.jpg')" style="height: 235px;width: 235px;padding-left: 10%;padding-right: 10%;padding-bottom: 10%;" src="{{ url_for('static', filename='main/images/predict/{NIM}/gambar3.jpg')}}"/>
+                    </div>
+                    <div class="column" style="background-color:rgb(235, 235, 235);">
+                        <p style="text-align: center;">{LABEL DATA}</p>
+                        <input type="image" name="submit" onclick="change('static/main/images/predict/{NIM}/gambar4.jpg')" style="height: 235px;width: 235px;padding-left: 10%;padding-right: 10%;padding-bottom: 10%;" src="{{ url_for('static', filename='main/images/predict/{NIM}/gambar4.jpg')}}"/>
+                    </div>
+                    <div class="column" style="background-color:rgb(235, 235, 235);">
+                        <p style="text-align: center;">{LABEL DATA}</p>
+                        <input type="image" name="submit" onclick="change('static/main/images/predict/{NIM}/gambar5.jpg')" style="height: 235px;width: 235px;padding-left: 10%;padding-right: 10%;padding-bottom: 10%;" src="{{ url_for('static', filename='main/images/predict/{NIM}/gambar5.jpg')}}"/>
+                    </div>
+                </div>                    
+                <div class="row">
+                    <div class="column" style="background-color:rgb(235, 235, 235);">
+                        <p style="text-align: center;">{LABEL DATA}</p>
+                        <input type="image" name="submit" onclick="change('static/main/images/predict/{NIM}/gambar6.jpg')" style="height: 235px;width: 235px;padding-left: 10%;padding-right: 10%;padding-bottom: 10%;" src="{{ url_for('static', filename='main/images/predict/{NIM}/gambar6.jpg')}}"/>
+                    </div>
+                    <div class="column" style="background-color:rgb(235, 235, 235);">
+                        <p style="text-align: center;">{LABEL DATA}</p>
+                        <input type="image" name="submit" onclick="change('static/main/images/predict/{NIM}/gambar7.jpg')"  style="height: 235px;width: 235px;padding-left: 10%;padding-right: 10%;padding-bottom: 10%;" src="{{ url_for('static', filename='main/images/predict/{NIM}/gambar7.jpg')}}"/>
+                    </div>
+                    <div class="column" style="background-color:rgb(235, 235, 235);">
+                        <p style="text-align: center;">{LABEL DATA}</p>
+                        <input type="image" name="submit" onclick="change('static/main/images/predict/{NIM}/gambar8.jpg')" style="height: 235px;width: 235px;padding-left: 10%;padding-right: 10%;padding-bottom: 10%;" src="{{ url_for('static', filename='main/images/predict/{NIM}/gambar8.jpg')}}"/>
+                    </div>
+                    <div class="column" style="background-color:rgb(235, 235, 235);">
+                        <p style="text-align: center;">{LABEL DATA}</p>
+                        <input type="image" name="submit" onclick="change('static/main/images/predict/{NIM}/gambar9.jpg')" style="height: 235px;width: 235px;padding-left: 10%;padding-right: 10%;padding-bottom: 10%;" src="{{ url_for('static', filename='main/images/predict/{NIM}/gambar9.jpg')}}" />
+                    </div>
+                    <div class="column" style="background-color:rgb(235, 235, 235);">
+                        <p style="text-align: center;">{LABEL DATA}</p>
+                        <input type="image" name="submit" onclick="change('static/main/images/predict/{NIM}/gambar10.jpg')" style="height: 235px;width: 235px;padding-left: 10%;padding-right: 10%;padding-bottom: 10%;" src="{{ url_for('static', filename='main/images/predict/{NIM}/gambar10.jpg')}}"/>
+                    </div>
+                </div>
+            <!-- EDIT END -->
+            </form>
+        </div>
+    </section>
+    <!-- grid-section end -->
+
+    {% endblock %}
