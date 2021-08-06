@@ -167,24 +167,25 @@ def f_nim_predicts_select():
                   'Nama Model 2'   :   'static/model/nim/model2.h5',
                   'Nama json Model 1' :   ['static/model/nim/js/model_js1.json','static/model/nim/js/model_weight_js1.h5'],  # Jika pakai Json dan weight model saat menyimpan model gunakan kode ini
                   'Nama json Model 2'    :   ['static/model/nim/js/model_js2.json','static/model/nim/js/model_weight_js2.h5'] # Beri kode nama "_js" tanpa petik di akhir nama model 
-                  }
+                  } 
 
     if chosen_model in model_dict:
-        if "_js" in m: # dari kode nama model _js selanjutnya program akan membaca model format json dengan block kode dalam if
-            json_file = open(model_dict[m][0], 'r')
+        if "_js" in chosen_model: # dari kode nama model _js selanjutnya program akan membaca model format json dengan block kode dalam if
+            json_file = open(model_dict[chosen_model][0], 'r')
             loaded_model_json = json_file.read()
             json_file.close()
             model = model_from_json(loaded_model_json)
-            model.load_weights(model_dict[m][1])
+            model.load_weights(model_dict[chosen_model][1])
         else: # bila nama model tidak mengandung kode nama _js maka model akan di muat menggunakan load_model()
-            model = load_model(model_dict[m])
+            model = load_model(model_dict[chosen_model])
     else:
         model = load_model(model_dict[0]) # load default model
     
-    filename = request.form.get('input_image')
-    
+    file = request.files["file"]
+    file.save(os.path.join('static', 'temp.jpg'))
+
     # preprocessing gambar lakukan sesuai dengan preprocessing yang sama saat proses training
-    img = cv2.cvtColor(np.array(Image.open(filename)), cv2.COLOR_BGR2RGB)
+    img = cv2.cvtColor(np.array(Image.open(file)), cv2.COLOR_BGR2RGB)
     img = np.expand_dims(cv2.resize(img, model.layers[0].input_shape[0][1:3] if not model.layers[0].input_shape[1:3] else model.layers[0].input_shape[1:3]).astype('float32') / 255, axis=0)
     
     # mulai prediki
