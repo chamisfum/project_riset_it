@@ -1,7 +1,7 @@
 # Riset Informatika Universitas Muhammadiyah Malang / Informatics Research Center
 
 <p align="center">
-  <img src="https://riset.informatika.umm.ac.id/main/images/main-logo.png" alt="Sublime's custom image"/>
+  <img src="main-logo.png" alt="Logo Riset Informatika"/>
 </p>
 
 Riset Informatika Universitas Muhammadiyah Malang adalah sebuah platform ...
@@ -27,30 +27,30 @@ Riset Informatika Universitas Muhammadiyah Malang adalah sebuah platform ...
 
 Install terlebih dahulu `requirements.txt` di environment masing - masing atau membuat virtual environment terlebih dahulu dengan `virtualenv` atau `Anaconda`.
 
-#### Create Virtual Environment with virtualenv
+### Create Virtual Environment with virtualenv
 
 ```sh
 pip install virtualenv
 virtualenv project-riset-it
 ```
 
-#### Activate virtualenv with Windows
+### Activate virtualenv with Windows
 ```sh
 \project-riset-it\Scripts\activate.bat
 ```
 
-#### Activate virtualenv with Linux or MacOS
+### Activate virtualenv with Linux or MacOS
 ```sh
 source project-riset-it/bin/activate
 ```
 
-#### Create Virtual Environment with Anaconda
+### Create Virtual Environment with Anaconda
 ```sh
 conda create --name project-riset-it
 conda activate project-riset-it
 ```
 
-#### Install Library
+### Install Library
 
 ```py
 pip install -r requirements.txt
@@ -72,18 +72,18 @@ Beberapa Code yang harus diganti sesuai dengan kebutuhan masing - masing. Tetapi
     - [Compare](#compare)
     - [Select](#select)
 
-#### Upload Your Model
+### Upload Your Model
 
 Ada dua jenis format model yang bisa dipakai disini, yaitu `.json` dan `.h5`. Masing - masing model di upload di folder `simpan_disini/static/model/nim/` untuk model dengan format `.h5`, jika model menggunakan `.json` bisa upload di folder `simpan_disini/static/model/nim/js/`.
 
-### Python
+## Python
 ----------
 
-#### Ganti NIM
+### Ganti NIM
 
 Mengganti semua function Python di dalam Flask dan folder path yang mengandung `_nim` dan `nim` dengan NIM masing - masing.
 
-**simpan_disini/main_example.py**
+***simpan_disini/main_example.py***
 
 ```py
 @app.route('/{PRODUCT_ID}/compare')
@@ -127,11 +127,11 @@ def f_201710370311000_predict_select():
     return f_201710370311000_predict_result_select(chosen_model, runtimes, respon_model, filename[7:])
 ```
 
-#### Ganti Model
+### Ganti Model
 
 Mengganti key dan value pada dictionary model sesuai dengan kebutuhan masing - masing. Jika model dengan format `.json` juga harus menambahkan **weights** dari model dengan format `.h5`. Ada dua jenis **function** yang disediakan pada repository ini, yaitu **Compare Model** dan **Select Model**. Jika ingin melakukan compare, edit key dan value pada function `_compare()` dan jika model yang digunakan hanya satu atau ingin menggunakan salah satu model yang diinginkan, gunakan function `_select()`.
 
-**simpan_disini/main_example.py**
+***simpan_disini/main_example.py***
 
 ```py
 @app.route('/{PRODUCT_ID}/pred_select', methods=['POST'])
@@ -161,11 +161,11 @@ def f_nim_predict_select():
     ...
 ```
 
-#### Ganti Preprocessing
+### Ganti Preprocessing
 
 Pada proses ini, sesuaikan dengan use case masing - masing dan pada saat proses training model.
 
-**simpan_disini/main_example.py**
+***simpan_disini/main_example.py***
 
 ```py
 @app.route('/{PRODUCT_ID}/pred_select', methods=['POST'])
@@ -184,11 +184,11 @@ def f_nim_predict_select():
     return image
 ```
 
-#### Ganti Label
+### Ganti Label
 
 Mengganti label kelas sesuai dengan use case masing - masing.
 
-**simpan_disini/main_example.py**
+***simpan_disini/main_example.py***
 
 ```py
 def f_nim_predict_result_select(model, run_time, probs, img):
@@ -212,15 +212,15 @@ def f_nim_predict_result_select(model, run_time, probs, img):
                             run_time=run_time, img=img)
 ```
 
-#### Menambahkan Function Sendiri
+### Menambahkan Function Sendiri
 
 Proses ini termasuk optional, karena pada repository ini lebih melakukan demo pada use case Image Classification. Jika use case yang dikerjakan seperti Generative Adversarial Network (GAN), Image Segmentation, dll bisa membuat function sendiri.
 
 Example:
 
-#### Create Image Segmentation Function
+### Create Image Segmentation Function
 
-**simpan_disini/segmentation.py**
+***simpan_disini/segmentation.py***
 
 ```py
 from skimage.filters import threshold_otsu
@@ -250,7 +250,7 @@ def otsu_thresh(file, img_width, img_height):
     return cv2.threshold(image, 0, 255, cv2.THRESH_BINARY + cv2.THRESH_OTSU)[1]
 ```
 
-**simpan_disini/main_example.py**
+***simpan_disini/main_example.py***
 
 ```py
 from segmentation import otsu_thresh
@@ -258,16 +258,16 @@ from segmentation import otsu_thresh
 # Apply your own function in here
 ```
 
-### HTML
+## HTML
 --------
 
 Ada beberapa yang harus diganti, [NIM](#nim), [General](#general), [Compare](#compare), [Select](#select). Base folder ini di `simpan_disini/templates/nim/`.
 
-#### NIM
+### NIM
 
 Pada bagian ini, harap mengganti `nim` pada folder `simpan_disini/templates/nim` sesuai dengan NIM masing - masing.
 
-#### General
+### General
 
 Pada proses ini mengganti bagian dibawah ini pada masing - masing file seperti `compare.html`, `result_compare.html`, `result_select.html`, `select.html`.
 
@@ -320,11 +320,11 @@ Example:
             ...
 ```
 
-#### Compare
+### Compare
 
 Pada proses ini edit file `compare.html`.
 
-**simpan_disini/templates/nim/compare.html**
+***simpan_disini/templates/nim/compare.html***
 
 ```html
     <!-- form-section -->
@@ -439,11 +439,11 @@ Example:
 ```
 
 
-#### Select
+### Select
 
 Pada proses ini edit file `select.html`.
 
-**simpan_disini/templates/nim/select.html**
+***simpan_disini/templates/nim/select.html***
 
 ```html
         <!-- EDIT START-->
@@ -564,7 +564,7 @@ Example:
             ...
 ```
 
-#### Run Flask on Localhost
+### Run Flask on Localhost
 
 Sebelum di upload ke Web Riset lebih baik di run local terlebih dahulu untuk mengetahui apakah project sudah berjalan dengan baik atau masih ada bug.
 
