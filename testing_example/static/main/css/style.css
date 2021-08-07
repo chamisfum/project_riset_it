@@ -1344,7 +1344,7 @@ figure{
   position: relative;
   background: #22262e;
   color: #d4dae3;
-  padding: 133px 0px 121px 0px;
+  padding: 80px 0px 80px 0px; /* Change original : 133px 0px 121px 0px*/
 }
 .main-footer .widgets-section{
   position: relative;
