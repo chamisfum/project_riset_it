@@ -274,9 +274,7 @@ Pada proses ini mengganti bagian dibawah ini pada masing - masing file seperti `
 ```html
         <div class="container">
             <div class="content-box">
-                <!-- EDIT START-->
-                    <div class="title">{JUDUL RISET}</div>
-                <!-- EDIT END -->
+                    <div class="title">Research Product Details</div>
                     <ul class="bread-crumb">
                         <li><a href="https://riset.informatika.umm.ac.id">Home</a></li>
                         <li><a href="https://riset.informatika.umm.ac.id/area_of_interest/1">Data Science</a></li>
@@ -299,9 +297,7 @@ Example:
 ```html
         <div class="container">
             <div class="content-box">
-                <!-- EDIT START-->
-                    <div class="title">Klasifikasi Tumor Otak Menggunakan SVM</div>
-                <!-- EDIT END -->
+                    <div class="title">Research Product Details</div>
                     <ul class="bread-crumb">
                         <li><a href="https://riset.informatika.umm.ac.id">Home</a></li>
                         <li><a href="https://riset.informatika.umm.ac.id/area_of_interest/1">Data Science</a></li>
