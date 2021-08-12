@@ -36,7 +36,7 @@ virtualenv project-riset-it
 
 ### Activate virtualenv with Windows
 ```sh
-\project-riset-it\Scripts\activate.bat
+\pathto\project-riset-it\Scripts\activate.bat
 ```
 
 ### Activate virtualenv with Linux or MacOS
