@@ -2,3 +2,4 @@ Pillow
 Flask==1.0
 gunicorn
 requests[security]
+opencv-python

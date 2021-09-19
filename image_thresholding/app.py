@@ -1,95 +1,103 @@
 # web-app for API image manipulation
-
 from flask import Flask, request, render_template, send_from_directory
 import os
 from PIL import Image
 import cv2
-from image_thresholding import otsu_thresh, niblack_thresh, sauvola_thresh
+from werkzeug.utils import redirect
+import Thresh as img_thres
 
 app = Flask(__name__)
-
 APP_ROOT = os.path.dirname(os.path.abspath(__file__))
 
+@app.after_request
+def add_header(r):
+    r.headers["Cache-Control"] = "no-cache, no-store, must-revalidate"
+    r.headers["Pragma"] = "no-cache"
+    r.headers["Expires"] = "0"
+    r.headers['Cache-Control'] = 'public, max-age=0'
+    return r
 
 # default access page
 @app.route("/")
 def main():
-    return render_template('index.html')
+    return render_template('proses.html')
 
 
 # upload selected image and forward to processing page
-@app.route("/upload", methods=["POST"])
-def upload():
+@app.route("/proses1", methods=['POST'])
+def proses1():
     target = os.path.join(APP_ROOT, 'static/images/')
+    filename = request.files['file']
+    print('filename : ',filename)
 
     # create image directory if not found
     if not os.path.isdir(target):
         os.mkdir(target)
 
-    # retrieve file from html file-picker
-    upload = request.files.getlist("file")[0]
-    print("File name: {}".format(upload.filename))
-    filename = upload.filename
-
-    # file support verification
-    ext = os.path.splitext(filename)[1]
-    if (ext == ".jpg") or (ext == ".png") or (ext == ".bmp"):
-        print("File accepted")
-    else:
-        return render_template("error.html", message="The selected file is not supported"), 400
-
     # save file
-    destination = "/".join([target, filename])
-    print("File saved to to:", destination)
-    upload.save(destination)
-
-    # forward to processing page
-    return render_template("processing.html", image_name=filename)
-
-@app.route("/threshold", methods=["POST"])
-def threshold():
-
-    # retrieve parameters from html form
+    data = os.path.join(target, "query.jpg")
+    filename.save(data)
+    img = cv2.imread(data, cv2.IMREAD_GRAYSCALE)
+    print(img)
+    # cek mode
     if 'otsu' in request.form['mode']:
         mode = 'otsu'
     elif 'niblack' in request.form['mode']:
         mode = 'niblack'
     elif 'sauvola' in request.form['mode']:
         mode = 'sauvola'
-    else:
-        return render_template("error.html", message="Mode not supported (vertical - horizontal)"), 400
-    filename = request.form['image']
-
-    # open and process image
-    target = os.path.join(APP_ROOT, 'static/images')
-    destination = "/".join([target, filename])
-
-    # img = Image.open(destination)
-    img = cv2.imread(destination, cv2.IMREAD_GRAYSCALE)
-    # img = cv2.resize(img, (224, 224))
-    res = img.copy()
-
+    #process
     if mode == 'otsu':
-        # img = cv2.imread(destination, 0)
-        img = otsu_thresh(img)
+        print('start otsu')
+        img_res = img_thres.otsu_thresh(img)
+        print(img_res)
+        cv2.imwrite("/".join([target, 'result.jpg']),img_res)
     elif mode == 'niblack':
-        # img = cv2.imread(destination, cv2.IMREAD_GRAYSCALE)
-        img = niblack_thresh(img)
+        img_res = img_thres.niblack_thresh(img)
+        cv2.imwrite("/".join([target, 'result.jpg']),img_res)
     elif mode == 'sauvola':
-        # img = img.convert('LA')
-        img = sauvola_thresh(img)
+        img_res = img_thres.sauvola_thresh(img)
+        cv2.imwrite("/".join([target, 'result.jpg']),img_res)
 
-    else:
-        img = img.transpose(Image.FLIP_TOP_BOTTOM)
+    # forward to processing page
+    return redirect('/')
 
-    # save and return image
-    destination = "/".join([target, 'temp.png'])
-    if os.path.isfile(destination):
-        os.remove(destination)
-    # img.save(destination)
-    cv2.imwrite(destination, img)
+@app.route("/proses2", methods=["POST"])
+def proses2():
+    target = os.path.join(APP_ROOT, 'static/images/')
+    filename = request.form.get('input_image')
+    print('filename : ',filename)
+    # create image directory if not found
+    if not os.path.isdir(target):
+        os.mkdir(target)
+    
+    # save file
+    img = Image.open(filename)
+    img.save("/".join([target, filename]))
+    img = cv2.imread("/".join([target, filename]), cv2.IMREAD_GRAYSCALE)
+    input_img = img.copy()
 
-    return send_image('temp.png')
+    # cek mode
+    if 'otsu' in request.form['mode']:
+        mode = 'otsu'
+    elif 'niblack' in request.form['mode']:
+        mode = 'niblack'
+    elif 'sauvola' in request.form['mode']:
+        mode = 'sauvola'
+
+    #process
+    if mode == 'otsu':
+        img_res = otsu_thresh(img)
+        cv2.imwrite("/".join([target, 'result.jpg']),img)
+    elif mode == 'niblack':
+        img_res = niblack_thresh(img)
+        cv2.imwrite("/".join([target, 'result.jpg']),img)
+    elif mode == 'sauvola':
+        img_res = sauvola_thresh(img)
+        cv2.imwrite("/".join([target, 'result.jpg']),img)
+
+    # forward to processing page
+    return render_template("proses.html")
 
 
 # retrieve file from 'static/images' directory
