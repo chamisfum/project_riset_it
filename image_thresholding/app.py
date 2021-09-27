@@ -40,11 +40,11 @@ def proses1():
     img = cv2.imread(data, cv2.IMREAD_GRAYSCALE)
     print(img)
     # cek mode
-    if 'otsu' in request.form['mode']:
+    if 'otsu' in request.form.get('select_thresholding'):
         mode = 'otsu'
-    elif 'niblack' in request.form['mode']:
+    elif 'niblack' in request.form.get('select_thresholding'):
         mode = 'niblack'
-    elif 'sauvola' in request.form['mode']:
+    elif 'sauvola' in request.form.get('select_thresholding'):
         mode = 'sauvola'
     #process
     if mode == 'otsu':
@@ -78,11 +78,11 @@ def proses2():
     input_img = img.copy()
 
     # cek mode
-    if 'otsu' in request.form['mode']:
+    if 'otsu' in request.form.get('select_thresholding'):
         mode = 'otsu'
-    elif 'niblack' in request.form['mode']:
+    elif 'niblack' in request.form.get('select_thresholding'):
         mode = 'niblack'
-    elif 'sauvola' in request.form['mode']:
+    elif 'sauvola' in request.form.get('select_thresholding'):
         mode = 'sauvola'
 
     #process
@@ -104,6 +104,10 @@ def proses2():
 @app.route('/static/images/<filename>')
 def send_image(filename):
     return send_from_directory("static/images", filename)
+
+@app.route('/backup')
+def coba():
+    return render_template("backup.html")
 
 
 if __name__ == "__main__":

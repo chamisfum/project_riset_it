@@ -10,7 +10,7 @@
                     <li><a href="https://riset.informatika.umm.ac.id">Home</a></li>
                     <li><a href="https://riset.informatika.umm.ac.id/area_of_interest/1">Data Science</a></li>
                     <li><a href="https://riset.informatika.umm.ac.id/area_of_interest/topics/1">Research Topics</a></li>
-                    <li><a href="https://riset.informatika.umm.ac.id/area_of_interest/topics/5/all">Batik Images</a></li>
+                    <li><a href="https://riset.informatika.umm.ac.id/area_of_interest/topics/24/all">Brain Tumor Image Thresholding</a></li>
                     <li>Product</li>
                 </ul>
             </div>
@@ -24,10 +24,33 @@
         <div class="container">
             <div class="title-box centred" id="architechture">
                 <div class="sec-title"><a class="sec-title" href="#predict1">Upload an Image</a> / <a class="sec-title" href="#predict2">Select an Image</a><br> to Find Similar Images</div><br>
+                    <!-- <div class="column" >
+                        <div class="form-check form-check-inline"> 
+                            <select name="select_model" id="selected_model">
+                                <option value='proposed'>                   Proposed Thresholding   </option>
+                                <option value='otsu' name="mode">           Otsu Thresholding       </option>
+                                <option value='niblack' name="mode">        Niblack Thresholding    </option>
+                                <option value='sauvola' name="mode">        Sauvola Thresholding    </option>
+
+                            </select>
+                        </div>   
+                    </div> -->
+                
             </div>
             <img id="image-preview" alt="image preview" src="#" style="width: 25%;"/>
             <form class="login100-form validate-form" action="/proses1" method=post enctype=multipart/form-data>
                 <div class="container-login100-form-btn">
+                    <div class="column" >
+                        <div class="form-check form-check-inline"> 
+                            <select name="select_thresholding" id="selected_thresholding">
+                                <option value='proposed' disabled selected>                   Proposed Thresholding   </option>
+                                <option value='otsu' name="mode">                             Otsu Thresholding       </option>
+                                <option value='niblack' name="mode">                          Niblack Thresholding    </option>
+                                <option value='sauvola' name="mode">                          Sauvola Thresholding    </option>
+
+                            </select>
+                        </div>   
+                    </div>
                     <div class="wrap-input100 validate-input" data-validate="Image file is required" id="input">
                         <input class="input100" id="image-source" name="file" onchange="previewImage();" type="file"
                             alt="Input Image" accept="image/jpeg,image/jpg,image/png">
@@ -38,10 +61,9 @@
                     </div>
                 </div>
                 <div class="container-login100-form-btn">
-                    <button id="btnOtsuThreshold" class="btn btn-lg btn-success" type="submit" name="mode" value="otsu">Otsu</button>
-                    <button id="btnNiblackThreshold" class="btn btn-lg btn-success" type="submit" name="mode" value="niblack">Niblack</button>
-                    <button id="btnSauvolaThreshold" class="btn btn-lg btn-success" type="submit" name="mode" value="sauvola">Sauvola</button>
-                </div>
+                    <button class="login100-form-btn" type="submit">
+                        Execute
+                    </button>
             </form>
         </div>
     </section>
@@ -49,22 +71,22 @@
 
 
     <!-- grid-section -->
-    <section class="contact-section centred" style="padding-top: 10px;" id="predict">
+    <section class="contact-section centred" style="padding-top: 10px; padding-left: auto;">
         <div class="container">
             <div class="divTable" >
-            <div class="divTableBody">
+            <div class="divTableBody justify-content-center">
             <div class="divTableRow">                
                 <div class="divTableCell"style="width: 3%;"></div>
                 <div class="divTableCell" style="width: 50%;">
                     <div class="sec-title" style="font-size: 40px;">Last Query</div>
                     <div>
-                        <img style="padding-top: 15%;padding-bottom: 15%;width: 100%;"
+                        <img style="padding-top: 15%;padding-bottom: 15%;width: 60%;"
                             src="{{ url_for('static', filename='images/query.jpg') }}">
                     </div>
                 </div>
-                <div class="divTableCell" style="margin: auto; width: 50%;">
+                <div class="divTableCell" style="width: 50%;">
                     <div class="sec-title" style="font-size: 40px;">Retrieval Result</div><br>
-                    <img style="padding-top: 15%;padding-bottom: 15%;width: 100%;"
+                    <img style="padding-top: 15%;padding-bottom: 15%;width: 60%;"
                     src="{{ url_for('static', filename='images/result.jpg') }}">
                 </div>
             </div>
