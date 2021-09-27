@@ -99,15 +99,10 @@ def proses2():
     # forward to processing page
     return render_template("proses.html")
 
-
 # retrieve file from 'static/images' directory
 @app.route('/static/images/<filename>')
 def send_image(filename):
     return send_from_directory("static/images", filename)
-
-@app.route('/backup')
-def coba():
-    return render_template("backup.html")
 
 
 if __name__ == "__main__":
