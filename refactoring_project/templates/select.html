@@ -1,0 +1,101 @@
+{% extends 'base.html' %}
+{% block content %}
+    <!-- page-title -->
+    <section class="page-title centred" style="background-image: url(../static/main/images/background/page-title.jpg);">
+        <div class="container">
+            <div class="content-box">
+                <div class="title">Research Product Details</div>
+                <ul class="bread-crumb">
+                    <li><a href="https://riset.informatika.umm.ac.id">Home</a></li>
+                    <li><a href="https://riset.informatika.umm.ac.id/area_of_interest/1">Data Science</a></li>
+                    <li><a href="https://riset.informatika.umm.ac.id/area_of_interest/topic/1">Research Topics</a></li>
+                    <li><a href="https://riset.informatika.umm.ac.id/area_of_interest/topic/1/1/all">Brain Tumor Disease</a></li>
+                    <li><a href="/data_science_product/1/select">Predict</a></li>
+                    <li><a href="/data_science_product/1/compare">Compare</a></li>
+                </ul>
+            </div>
+        </div>
+    </section>
+    <!-- page-title end -->
+
+    <!-- form-section -->
+    <section class="contact-section" style="padding-top:50px;" id="predict1">
+        <div class="container">
+            <div class="title-box centred" >
+                <div class="sec-title"><a class="sec-title" href="#predict1">Upload an Image</a> / <a class="sec-title" href="#predict">Select an Image</a><br> to Classify</div><br>
+            </div>
+            <form class="login100-form validate-form" action="/pred_selects" method=post enctype=multipart/form-data>
+                <div class="row" style=" width: 29%; margin: auto; padding: 15px;" >
+                    <div class="column" >
+                        <div class="form-check form-check-inline">
+                            <p style="font-weight: bold; color: black;">Select Model : </p>
+                        </div>   
+                    </div>
+                    <div class="column" >
+                        <div class="form-check form-check-inline"> 
+                            <select name="select_model" id="selected_model">
+                                {% for model in listModel %}
+                                <option value='{{model}}'>{{" ".join(model.split("_")[-2:]).capitalize()}}</option>
+                                {% endfor %}
+                            </select>
+                        </div>   
+                    </div>
+                </div>
+                <img id="image-preview" alt="image preview" src="#" style="width: 35%;"/>
+                <div class="container-login100-form-btn">
+                    <div class="wrap-input100 validate-input" data-validate="Image file is required" id="input">
+                        <input class="input100" id="image-source" name="file" onchange="previewImage();" type="file"
+                            alt="Input Image" accept="image/jpeg,image/jpg,image/png">
+                        <span class="focus-input100"></span>
+                        <span class="symbol-input100">
+                            <i class="fa fa-file" aria-hidden="true"></i>
+                        </span>
+                    </div>
+                </div>
+                <div class="container-login100-form-btn">
+                    <button class="login100-form-btn" type="submit">
+                        Execute
+                    </button>
+                </div>
+            </form>
+        </div>
+    </section>
+    <!-- form-section end -->
+
+    <!-- grid-section -->
+    <section class="contact-section centred" style="padding-top:100px;" id="predict">
+        <div class="container">
+            <div class="title-box centred" >
+                <div class="sec-title">Select an Image to Predict</div><br>
+            </div>
+            <form action="/pred_select" method="POST">
+                <div class="row" style=" width: 29%; margin: auto; padding: 15px;" >
+                    <div class="column" >
+                        <div class="form-check form-check-inline">
+                            <p style="font-weight: bold; color: black;">Select Model : </p>
+                        </div>   
+                    </div>
+                    <div class="column" >
+                        <div class="form-check form-check-inline"> 
+                            <select name="select_model" id="selected_model">
+                                {% for model in listModel %}
+                                <option value='{{model}}'>{{" ".join(model.split("_")[-2:]).capitalize()}}</option>
+                                {% endfor %}
+                            </select>
+                        </div>   
+                    </div>
+                </div>
+                <div class="row">
+                    <input type="hidden" name="input_image" id="count" value="static/main/images/predict/g4.jpg" />
+                    {% for idx in range( imageQuery |length ) %}
+                    <div class="column" style="background-color:rgb(235, 235, 235);">
+                        <p style="text-align: center;">{{ imageClass[idx] }}</p>
+                        <input type="image" name="submit" onclick="change('{{imageQuery[idx]}}')" style="height: 235px;width: 235px;padding-left: 10%;padding-right: 10%;padding-bottom: 10%;" src="{{imageQuery[idx]}}"/>
+                    </div>
+                    {% endfor %}
+                </div>
+            </form>
+        </div>
+    </section>
+    <!-- grid-section end -->
+{% endblock %}
