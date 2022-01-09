@@ -16,4 +16,11 @@ path           = "static/model/" # path lokasi menyimpan model
 queryImagePath = "static/queryImage/" # path lokasi penyimpanan contoh query image
 ```
 
+Ganti nama model dan gambar query dengan pola penamaan sbb :
+- nama query gambar `namaKelas_namaGambar.extensi`
+- nama model `VGG16_model.h5` atau `VGG16_model.json` (untuk model json)
+- nama bobot (weight) `VGG16_weight.h5`
+
+
+
 Happy Coding :)
