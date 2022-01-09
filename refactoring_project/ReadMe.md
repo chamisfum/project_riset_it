@@ -17,10 +17,11 @@ queryImagePath = "static/queryImage/" # path lokasi penyimpanan contoh query ima
 ```
 
 Ganti nama model dan gambar query dengan pola penamaan sbb :
-- nama query gambar `namaKelas_namaGambar.jpg` (gambar boleh jpg, png, jpeg, grayscale rgb)
-- nama model `VGG16_model.h5` atau `VGG16_model.json` (untuk model json)
-- nama bobot (weight) `VGG16_weight.h5`
+- nama query gambar `namaKelas_namaGambar.jpg` (gambar boleh berekstensi jpg, png, jpeg, grayscale atau RGB)
+- nama model `namaModel_model.h5` atau `namaModel_model.hdf5` (untuk hdf5 model) atau `namaModel_model.json` (untuk model json) 
+- nama bobot (weight) `nameWeight_weight.h5`
 
+**Untuk Sigmoid model silahkan hapus bagian tabel performa di template html**
 
 
 Happy Coding :)
