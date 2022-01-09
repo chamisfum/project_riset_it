@@ -17,7 +17,7 @@ queryImagePath = "static/queryImage/" # path lokasi penyimpanan contoh query ima
 ```
 
 Ganti nama model dan gambar query dengan pola penamaan sbb :
-- nama query gambar `namaKelas_namaGambar.extensi`
+- nama query gambar `namaKelas_namaGambar.jpg` (gambar boleh jpg, png, jpeg, grayscale rgb)
 - nama model `VGG16_model.h5` atau `VGG16_model.json` (untuk model json)
 - nama bobot (weight) `VGG16_weight.h5`
 
