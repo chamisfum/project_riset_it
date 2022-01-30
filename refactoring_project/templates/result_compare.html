@@ -24,10 +24,10 @@
             <div class="title-box centred" >
                 <div class="sec-title">Probability Table</div>
             </div>
-            {% for x in range(mdl|length) %}
+            {% for x in range(model|length) %}
             <div class="form-check form-check-inline" style=" width: 100%; margin: auto; padding: 15px; text-align:center;">
                 <p style="color: black; vertical-align: middle; width: 100%; margin: auto; ">Prediction of : <span style="font-weight: bold;">
-                    {{mdl[x]}} </span> | Predition Time : <span style="font-weight: bold;"> {{run_time[x]}} </span>second</p>
+                    {{model[x]}} </span> | Predition Time : <span style="font-weight: bold;"> {{run_time[x]}} </span>second</p>
             </div>   
             <div class="table-responsive">    
                 <table class="table">
@@ -57,11 +57,11 @@
                 <div class="col-lg-8 col-md-12 col-sm-12 content-column">
                     <div class="inner-content">
                         <div class="contact-form-area">
-                            {% for x in range(mdl|length) %}
-                                    <p style="margin: unset; padding: none; color: black; text-transform: capitalize; font-size: 25px; font-weight: bold;">{{mdl[x]}} Model
-                                        {% if mdl[run_time.index(run_time|min)] == mdl[x] %}
+                            {% for x in range(model|length) %}
+                                    <p style="margin: unset; padding: none; color: black; text-transform: capitalize; font-size: 25px; font-weight: bold;">{{model[x]}} Model
+                                        {% if model[run_time.index(run_time|min)] == model[x] %}
                                         <span style="color: rgb(0, 140, 255); text-transform: capitalize; font-size: 15px; font-weight: normal; font-style: italic;"> fastest </span>
-                                        {% elif mdl[run_time.index(run_time|max)] == mdl[x] %}
+                                        {% elif model[run_time.index(run_time|max)] == model[x] %}
                                         <span style="color: rgb(255, 31, 31); text-transform: capitalize; font-size: 15px; font-weight: normal; font-style: italic;"> slowest </span>
                                         {% endif %}</p>
                                     <p style="margin: unset; padding: none; color: black; text-transform: capitalize; font-size: medium; font-weight: bold;">{{ labels[probs[x].index(probs[x]|max)] }}</p> 
@@ -69,10 +69,10 @@
                                 {% endfor %}
                                 <br>
                                 <p style="text-align: center; margin-bottom: 6px; color: white; text-transform: initial; font-size: 18px; font-weight: normal; background-color: rgb(0, 140, 255); ">
-                                    <span style="font-weight: bold; ">{{mdl[run_time.index(run_time|min)]}}</span> is 
+                                    <span style="font-weight: bold; ">{{model[run_time.index(run_time|min)]}}</span> is 
                                     <span style="font-weight: bold;">{{'%0.2f'| format((run_time|max)/(run_time|min))}} times </span>
                                      faster than 
-                                    <span style="font-weight: bold;">{{mdl[run_time.index(run_time|max)]}}</span>
+                                    <span style="font-weight: bold;">{{model[run_time.index(run_time|max)]}}</span>
                                     <span style="text-transform: capitalize; font-size: 12px; font-weight: normal;"> (the slowest model) </span></p>
                             </p> 
                         </div>

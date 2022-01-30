@@ -51,8 +51,8 @@
                 <div class="col-lg-8 col-md-12 col-sm-12 content-column">
                     <div class="inner-content">
                         <div class="contact-form-area">
-                            <p style="margin: unset; padding: none; color: black; text-transform: capitalize; font-size: 25px; font-weight: bold;">{{ model }} Model</p> 
-                            <p style="margin: unset; padding: none; color: black; text-transform: capitalize; font-size: medium; font-weight: bold;"> {{ labels[pred] }}</p> 
+                            <p style="margin: unset; padding: none; color: black; text-transform: capitalize; font-size: 25px; font-weight: bold;">{{ model }}</p> 
+                            <p style="margin: unset; padding: none; color: black; text-transform: capitalize; font-size: medium; font-weight: bold;"> {{ labels[probs.index(probs|max)] }}</p> 
                             Confidance : {{ (probs|max) }}% | Prediction Time : {{ (run_time) }} second
                             <input type="hidden" id="probability" value={{ (probs|max) }}> 
                             <div id="myProgress">
