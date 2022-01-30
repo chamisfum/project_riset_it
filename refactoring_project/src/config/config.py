@@ -67,6 +67,24 @@ def _buildListModel(path):
   
   return json_model, hdf5_model
   
+def _getDictModel(path):
+  dicts        = {}
+  keys         = []
+  values       = []
+  json_model, hdf5_model = _buildListModel(path)
+  
+  if json_model:  
+    keys, values = _buildDictModel(json_model)
+
+  if hdf5_model:
+    keys, values = _buildDictModel(hdf5_model)
+    
+  for i in range(len(keys)):
+    data        = _getElementByIndex(keys, i)
+    dicts[data] = values[i]
+    
+  return dicts, keys, values
+
 def _loadSelectModel(model, path):
   model_dict, _, _ = _getDictModel(path)
 

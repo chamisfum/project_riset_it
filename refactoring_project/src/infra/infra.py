@@ -1,13 +1,9 @@
 # python package
-from tkinter import image_names
 import cv2
 import numpy as np
 import os
 from PIL import Image
 import time
-
-def _getCurrentTime() -> float:
-    return round(time.time(), 4)
 
 def _getFilesFromFolder(path) -> list:
     list_files = os.listdir(path)
@@ -18,9 +14,10 @@ def _getFilePathAndName(path, file) -> str:
     return file_path
     
 def _getDifferentTime(startTime) -> float:
-    different_time = time.time()-startTime
-    rounded_result = _roundFloatNumber(different_time, 4)
-    return rounded_result
+    current_time    = time.time()
+    different_time  = current_time-startTime
+    rounded_time    = _roundFloatNumber(different_time, 4)
+    return rounded_time
 
 def _predictData(model, file) -> list:
     prediction = model.predict(file)[0]
@@ -62,10 +59,6 @@ def _getSplitedStringByIndex(string_data, regex, index) -> str:
     splited_string  = _splitDataByRegex(string_data, regex)
     res             = _getElementByIndex(splited_string, index)
     return res
-
-def _listLength(list_data) -> int:
-    res = len(list_data)
-    return
 
 def _openImageFile(image_file):
     read_image      = Image.open(image_file)

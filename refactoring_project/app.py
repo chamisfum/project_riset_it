@@ -7,6 +7,7 @@ It would provide a collection of data such (prediction class, metric performance
 
 # python package
 import os
+from PIL import Image
 from flask import Flask, request, render_template
 
 # internal package
@@ -81,7 +82,8 @@ def predicts_compare():
     # get list of selected models from frontend
     choosenModelList                 = request.form.getlist('select_model')
     # get uploaded an image and save it into query_upload_image folder as temp image
-    getImageFile                     = request.files["file"].save(os.path.join(query_upload_image, 'temp.jpg'))
+    getImageFile                     = request.files["file"]
+    getImageFile.save(os.path.join(query_upload_image, 'temp.jpg'))
     # get prediction time and result of RGB image for each selected model
     predictionResult, predictionTime = service.PredictInputRGBImageList(choosenModelList, model_path, getImageFile)
     # render compare model result page with additional collection of data such labels, probs, model names, run_times and image query
@@ -114,7 +116,8 @@ def predicts_select():
     # get a selected models from frontend
     choosenModel                     = request.form['select_model']
     # get uploaded an image and save it into query_upload_image folder as temp image
-    getImageFile                     = request.files["file"].save(os.path.join(query_upload_image, 'temp.jpg'))
+    getImageFile                     = request.files["file"]
+    getImageFile.save(os.path.join(query_upload_image, 'temp.jpg'))
     # get prediction time and result of selected model
     predictionResult, predictionTime = service.PredictInputRGBImage(choosenModel, model_path, getImageFile)
     # render compare model result page with additional collection of data such labels, probs, model names, run_times and image query
