@@ -1,18 +1,25 @@
 """
+
 Documentation
-This part is an application for deploying image classification using 
-Deep Learning algorithm. Use this part as main service endpoint for 
-managing raw data from frontend into service backend. It would provide 
-a collection of data such (prediction class, metric performance etc) 
+
+This part is an application for deploying image classification using Deep Learning algorithm. 
+Use this part as main service endpoint for managing raw data from frontend into service backend. 
+It would provide a collection of data such (prediction class, metric performance etc) 
 from service backend into frontend.
+
 """
 
 # python package
-import os
+# import requests
+# assert requests.get('https://github.com/nvbn/import_from_github_com').status_code == 200
 from flask import Flask, request, render_template
 
 # internal package
 from src.service import service
+
+GetFilePathAndName              = service._getFilePathWithName
+ModelDictionary                 = service._getDictModel
+QueryImageList                  = service.GetListOfQueryImage
 
 """
 LOCAL CONFIG!
@@ -64,8 +71,8 @@ def compare():
         This part will provide a collection of model name and path, also class 
             name of each example of query images and image full path.
     """
-    _, listModel, _             = service.GetDictModel(MODEL_PATH)
-    imageClass, _, imageQuery   = service.GetListOfQueryImage(QUERY_IMAGE_PATH)
+    _, listModel, _             = ModelDictionary(MODEL_PATH)
+    imageClass, _, imageQuery   = QueryImageList(QUERY_IMAGE_PATH)
     return render_template('/compare.html', listModel=listModel, imageQuery=imageQuery, imageClass=imageClass)
 
 @app.route('/pred_comp', methods=['POST'])
@@ -99,7 +106,7 @@ def predicts_compare():
     """
     choosenModelList                 = request.form.getlist('select_model')
     getImageFile                     = request.files["file"]
-    getImageFile.save(os.path.join(QUERY_UPLOAD_IMAGE, 'temp.jpg'))
+    getImageFile.save(GetFilePathAndName(QUERY_UPLOAD_IMAGE, 'temp.jpg'))
     predictionResult, predictionTime = service.PredictInputRGBImageList(choosenModelList, MODEL_PATH, getImageFile)
     return render_template('/result_compare.html', labels=LABELS, probs=predictionResult, model=choosenModelList, run_time=predictionTime, img='temp.jpg')
 
@@ -109,8 +116,8 @@ def select():
         Render UI template for select model home page
         This part will provide a collection of model name and path, also class name of each example of query images and image full path.
     """
-    _, listModel, _             = service.GetDictModel(MODEL_PATH)
-    imageClass, _, imageQuery   = service.GetListOfQueryImage(QUERY_IMAGE_PATH)
+    _, listModel, _             = ModelDictionary(MODEL_PATH)
+    imageClass, _, imageQuery   = QueryImageList(QUERY_IMAGE_PATH)
     return render_template('/select.html', listModel=listModel, imageQuery=imageQuery, imageClass=imageClass)
 
 @app.route('/pred_select', methods=['POST'])
@@ -144,7 +151,7 @@ def predicts_select():
     """
     choosenModel                     = request.form['select_model']
     getImageFile                     = request.files["file"]
-    getImageFile.save(os.path.join(QUERY_UPLOAD_IMAGE, 'temp.jpg'))
+    getImageFile.save(GetFilePathAndName(QUERY_UPLOAD_IMAGE, 'temp.jpg'))
     predictionResult, predictionTime = service.PredictInputRGBImage(choosenModel, MODEL_PATH, getImageFile)
     return render_template('/result_select.html', labels=LABELS, probs=predictionResult, model=choosenModel, run_time=predictionTime, img='temp.jpg')
 

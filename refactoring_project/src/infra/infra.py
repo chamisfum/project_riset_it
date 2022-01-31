@@ -1,9 +1,12 @@
 
 """
+
 DOCUMENTATION:
-Infra layer use to provide a tiny and small function to handle our application
-You can add new function features to handle a small acctivities as private func
-Here is only use one rule (One Functinon One Acctivity)
+
+Infra layer use to provide a tiny and small function to handle our application activities.
+You can add new function features to handle a small acctivities as private function
+Here is only use one rule for every functions and attributes (One Functinon One Acctivity)
+
 """
 
 # python package
@@ -15,6 +18,8 @@ import time
 
 def _getFilesFromFolder(path) -> list:
     """
+    Function Description :
+    
         _getFilesFromFolder : provide us a collection of file name with each path
         accept path location or folder that want to scan all data in those path
         
@@ -27,6 +32,8 @@ def _getFilesFromFolder(path) -> list:
 
 def _getFilePathAndName(path, file) -> str:
     """
+    Function Description :
+
         _getFilePathAndName : provide  string of file name and path location
         accept path folder or location of the file and file name as arguments 
         
@@ -39,6 +46,8 @@ def _getFilePathAndName(path, file) -> str:
     
 def _getDifferentTime(startTime) -> float:
     """
+    Function Description :
+    
         _getDifferentTime : provide a difference of start time and current time 
         commonly used for measure how long each function activities running 
         accept startTime as beginning time and return a float number of difference 
@@ -55,6 +64,8 @@ def _getDifferentTime(startTime) -> float:
 
 def _predictData(model, file) -> list:
     """
+    Function Description :
+    
         _predictData : provide a collection of prediction result
         accept model and file name + location as arguments
 
@@ -67,6 +78,8 @@ def _predictData(model, file) -> list:
 
 def _roundFloatNumber(data, decimal_length) -> float:
     """
+    Function Description :
+
         _roundFloatNumber : provide float value with n decimal digit number
         accept data tobe rounded number and decimal_length as the number of 
         decimal digit number
@@ -80,6 +93,8 @@ def _roundFloatNumber(data, decimal_length) -> float:
 
 def _roundedPercentage(data, decimal_length) -> float:
     """
+    Function Description :
+
         _roundFloatNumber : provide a rounded float percentile value with n decimal
         digit number accept data as argument that would be rounded number and 
         decimal_length as the number of decimal digit number
@@ -94,6 +109,8 @@ def _roundedPercentage(data, decimal_length) -> float:
 
 def _appendListElement(list_data, data) -> list:
     """
+    Function Description :
+
         _appendListElement : append new squence element and return into sequence
         accept list_data as list that would be append with new data. And the data 
         is arg to hold the new data
@@ -107,6 +124,8 @@ def _appendListElement(list_data, data) -> list:
 
 def _roundedPercentageListValue(list_data, decimal_length) -> list:
     """
+    Function Description :
+    
         _roundedPercentageListValue : provide a collection of rounded percentile 
         value with n decimal digit number accept list_data as collection tobe rounded 
         percentile and decimal_length as the number of decimal digit number
@@ -123,6 +142,8 @@ def _roundedPercentageListValue(list_data, decimal_length) -> list:
 
 def _splitDataByRegex(string_data, regex) -> list:
     """
+    Function Description :
+    
         _splitDataByRegex : provide a collection of splitted string by regex
         accept string_data as a string that would be split into several part. 
         And regex value as splitter
@@ -137,6 +158,8 @@ def _splitDataByRegex(string_data, regex) -> list:
 
 def _getElementByIndex(list_data, index):
     """
+    Function Description :
+    
         _getElementByIndex : provide a value of a collection data that indicate by defined index
         accept list_data as a collection data and index as the index of the choosen data that would be found
 
@@ -149,6 +172,8 @@ def _getElementByIndex(list_data, index):
 
 def _getElementByIndexRange(list_data, buttom=0, top=-1):
     """
+    Function Description :
+    
         _getElementByIndex : might be provide a collection value of a collection data that indicate 
         by defined index range accept list_data as a collection data, buttom as index buttom of index 
         range (defaul = 0) and top as the top index range (default = -1)
@@ -162,6 +187,8 @@ def _getElementByIndexRange(list_data, buttom=0, top=-1):
 
 def _getSplitedStringByIndex(string_data, regex, index) -> str:
     """
+    Function Description :
+    
         _getSplitedStringByIndex : provide a choosen data of splitted string by regex with choosen 
         index of output accept string_data as a string that would be split into several part, 
         regex value as splitter, and index as indicator of choosen data
@@ -176,6 +203,8 @@ def _getSplitedStringByIndex(string_data, regex, index) -> str:
 
 def _openImageFile(image_file):
     """
+    Function Description :
+    
         _openImageFile : used to open image file using pillow function
 
         EXAMPLE ARGS : (image_file = "/usr/name/image.jpg")
@@ -187,6 +216,8 @@ def _openImageFile(image_file):
 
 def _imageToNumpyArray(image):
     """
+    Function Description :
+    
         _imageToNumpyArray : transform image into numpy array
 
         EXAMPLE ARGS : (image = <image.Metadata>)
@@ -206,6 +237,8 @@ def _renderRGBImage(bgr_image):
 
 def _renderRGBtoGrayImage(rgb_image):
     """
+    Function Description :
+    
         _renderRGBtoGrayImage : transform from BGR/RGB format into Grayscale format
         accept numpy array of image and return numpy array of image
         NOTE: commonly its use RGB format as input
@@ -215,8 +248,11 @@ def _renderRGBtoGrayImage(rgb_image):
 
 def _getImageSizeFromModel(model, index=0, buttom=0, top=-1):
     """
+    Function Description :
+    
         _getImageSizeFromModel : get image size and input shape dimention of model
-        accept model and index as argument and return a model input shape with image size based on model input shape
+        accept model and index as argument and return a model input shape with image size 
+        based on model input shape
     """
     model_input_shape   = _getElementByIndex(model.layers, index)
     image_size          = _getElementByIndexRange(model_input_shape.input_shape, buttom, top)
@@ -224,6 +260,8 @@ def _getImageSizeFromModel(model, index=0, buttom=0, top=-1):
 
 def _resizeImageByModelInputShape(image, model):
     """
+    Function Description :
+    
         _resizeImageByModelInputShape : resize image by model input shape
         accept model and image as argument and return resized image with input_shape and image_size
     """
@@ -236,14 +274,18 @@ def _resizeImageByModelInputShape(image, model):
 
 def _normalizeImage(image):
     """
-        _normalizeImage : normalize image file into float32 range value and devided by 255 (as pixel representation) 
-        accept image as argument and return normalized_image
+    Function Description :
+    
+        _normalizeImage : normalize image file into float32 range value and 
+        devided by 255 (as pixel representation) accept image as argument and return normalized_image
     """
     normalized_image   = image.astype('float32') / 255
     return normalized_image
 
 def _reshapeGrayImage(image, image_size, gray_channel=(1,)):  
     """
+    Function Description :
+    
         _reshapeGrayImage : reshaping an image into grayschale image dimension. 
         accept image, image_size and gray_channel scale as argument and return reshaped image
     """
@@ -252,6 +294,8 @@ def _reshapeGrayImage(image, image_size, gray_channel=(1,)):
 
 def _expandRGBImageDimensions(image, axis=0): 
     """
+    Function Description :
+    
         _expandRGBImageDimensions : expand RGB image dimension in addition to fit with model input shape
         accept image, and axis with default 0 value and return expanded image dimension
     """ 
