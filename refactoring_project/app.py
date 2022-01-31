@@ -41,8 +41,12 @@ QUERY_IMAGE_PATH    = "static/queryImage/"
 QUERY_UPLOAD_IMAGE  = "static/queryUpload/"
 
 # IMPORTANT!
-# please change this part into your parent path destination of web service configuration
-PARENT_LOCATION     = "/data_science_product/"
+# please change this part into your product detail and configuration
+PARENT_LOCATION     = "data_science_product" # refers to parent of project web service configuration
+TOPIC_NAME          = "Brain Tumor Disease" # represent 
+AREA_OF_INTEREST_ID = "1"
+TOPIC_ID            = "1"
+PRODUCT_ID          = "1"
 
 """
 LOCAL CONFIG!
@@ -79,7 +83,9 @@ def compare():
     """
     _, listModel, _             = ModelDictionary(MODEL_PATH)
     imageClass, _, imageQuery   = QueryImageList(QUERY_IMAGE_PATH)
-    return render_template('/compare.html', listModel=listModel, imageQuery=imageQuery, imageClass=imageClass)
+    return render_template('/compare.html', listModel = listModel, parent_location = PARENT_LOCATION,
+                            topic_name = TOPIC_NAME, aoi_id = AREA_OF_INTEREST_ID, topic_id = TOPIC_ID, 
+                            product_id = PRODUCT_ID, imageQuery = imageQuery, imageClass=imageClass)
 
 @app.route('/pred_comp', methods=['POST'])
 def predict_compare():
@@ -97,7 +103,8 @@ def predict_compare():
     getImageFile                     = request.form.get('input_image') 
     predictionResult, predictionTime = PredictRGBImageList(choosenModelList, MODEL_PATH, getImageFile)
     return render_template('/result_compare.html', labels = LABELS, probs = predictionResult, parent_location = PARENT_LOCATION,
-                            model = choosenModelList, run_time = predictionTime, img = getImageFile[7:])
+                            topic_name = TOPIC_NAME, aoi_id = AREA_OF_INTEREST_ID, topic_id = TOPIC_ID, 
+                            product_id = PRODUCT_ID, model = choosenModelList, run_time = predictionTime, img = getImageFile[7:])
 
 @app.route('/pred_comps', methods=['POST'])
 def predicts_compare():
@@ -117,7 +124,8 @@ def predicts_compare():
     getImageFile.save(relocationImageFile)
     predictionResult, predictionTime = PredictRGBImageList(choosenModelList, MODEL_PATH, getImageFile)
     return render_template('/result_compare.html', labels = LABELS, probs = predictionResult, parent_location = PARENT_LOCATION,
-                            model = choosenModelList, run_time = predictionTime, img = relocationImageFile)
+                            topic_name = TOPIC_NAME, aoi_id = AREA_OF_INTEREST_ID, topic_id = TOPIC_ID, 
+                            product_id = PRODUCT_ID, model = choosenModelList, run_time = predictionTime, img = relocationImageFile)
 
 @app.route('/select')
 def select():
@@ -128,7 +136,9 @@ def select():
     """
     _, listModel, _             = ModelDictionary(MODEL_PATH)
     imageClass, _, imageQuery   = QueryImageList(QUERY_IMAGE_PATH)
-    return render_template('/select.html', listModel=listModel, imageQuery=imageQuery, imageClass=imageClass)
+    return render_template('/select.html', listModel = listModel, parent_location = PARENT_LOCATION,
+                            topic_name = TOPIC_NAME, aoi_id = AREA_OF_INTEREST_ID, topic_id = TOPIC_ID, 
+                            product_id = PRODUCT_ID, imageQuery = imageQuery, imageClass = imageClass)
 
 @app.route('/pred_select', methods=['POST'])
 def predict_select():
@@ -146,7 +156,8 @@ def predict_select():
     getImageFile                     = request.form.get('input_image')
     predictionResult, predictionTime = PredicRGBImage(choosenModel, MODEL_PATH, getImageFile)
     return render_template('/result_select.html', labels = LABELS, probs = predictionResult, parent_location = PARENT_LOCATION,
-                            model = choosenModel, run_time = predictionTime, img = getImageFile[7:])
+                            topic_name = TOPIC_NAME, aoi_id = AREA_OF_INTEREST_ID, topic_id = TOPIC_ID, 
+                            product_id = PRODUCT_ID, model = choosenModel, run_time = predictionTime, img = getImageFile[7:])
 
 @app.route('/pred_selects', methods=['POST'])
 def predicts_select():
@@ -166,7 +177,8 @@ def predicts_select():
     getImageFile.save(relocationImageFile)
     predictionResult, predictionTime = PredicRGBImage(choosenModel, MODEL_PATH, getImageFile)
     return render_template('/result_select.html', labels = LABELS, probs = predictionResult, parent_location = PARENT_LOCATION,
-                            model = choosenModel, run_time = predictionTime, img = relocationImageFile)
+                            topic_name = TOPIC_NAME, aoi_id = AREA_OF_INTEREST_ID, topic_id = TOPIC_ID, 
+                            product_id = PRODUCT_ID, model = choosenModel, run_time = predictionTime, img = relocationImageFile)
 
 if __name__ == "__main__": 
     # LOCAL DEVELOPMENT CONFIG

@@ -1,4 +1,6 @@
-# Riset Informatika Universitas Muhammadiyah Malang / Informatics Research Center
+# NEW README COMMING SOON
+# EXP README
+Riset Informatika Universitas Muhammadiyah Malang / Informatics Research Center
 
 <p align="center">
   <img src="main-logo.png" alt="Logo Riset Informatika"/>
@@ -277,7 +279,7 @@ Pada proses ini mengganti bagian dibawah ini pada masing - masing file seperti `
                     <div class="title">Research Product Details</div>
                     <ul class="bread-crumb">
                         <li><a href="https://riset.informatika.umm.ac.id">Home</a></li>
-                        <li><a href="https://riset.informatika.umm.ac.id/area_of_interest/1">Data Science</a></li>
+                        <li><a href="https://riset.informatika.umm.ac.id/area_of_interest/{{aoi_id}}">Data Science</a></li>
                         <li><a href="https://riset.informatika.umm.ac.id/area_of_interest/topics/1">Research Topics</a></li>
                     <!-- EDIT START-->
                         <li><a href="https://riset.informatika.umm.ac.id/area_of_interest/topics/{TOPIC_ID}/all">{NAMA TOPIC}</a></li>
@@ -300,7 +302,7 @@ Example:
                     <div class="title">Research Product Details</div>
                     <ul class="bread-crumb">
                         <li><a href="https://riset.informatika.umm.ac.id">Home</a></li>
-                        <li><a href="https://riset.informatika.umm.ac.id/area_of_interest/1">Data Science</a></li>
+                        <li><a href="https://riset.informatika.umm.ac.id/area_of_interest/{{aoi_id}}">Data Science</a></li>
                         <li><a href="https://riset.informatika.umm.ac.id/area_of_interest/topics/1">Research Topics</a></li>
                     <!-- EDIT START-->
                         <li><a href="https://riset.informatika.umm.ac.id/area_of_interest/topics/11/all">Klasifikasi Tumor Otak Menggunakan SVM</a></li>

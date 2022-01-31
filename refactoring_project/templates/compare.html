@@ -7,11 +7,11 @@
                 <div class="title">Research Product Details</div>
                 <ul class="bread-crumb">
                     <li><a href="https://riset.informatika.umm.ac.id">Home</a></li>
-                    <li><a href="https://riset.informatika.umm.ac.id/area_of_interest/1">Data Science</a></li>
-                    <li><a href="https://riset.informatika.umm.ac.id/area_of_interest/topic/1">Research Topics</a></li>
-                    <li><a href="https://riset.informatika.umm.ac.id/area_of_interest/topic/1/1/all">Brain Tumor Disease</a></li>
-                    <li><a href="{{parent_location}}1/select">Predict</a></li>
-                    <li><a href="{{parent_location}}1/compare">Compare</a></li>
+                    <li><a href="https://riset.informatika.umm.ac.id/area_of_interest/{{aoi_id}}">Data Science</a></li>
+                    <li><a href="https://riset.informatika.umm.ac.id/area_of_interest/topic/{{aoi_id}}">Research Topics</a></li>
+                    <li><a href="https://riset.informatika.umm.ac.id/area_of_interest/topic/{{aoi_id}}/{{topic_id}}/all">/{{topic_name}}</a></li>
+                    <li><a href="/{{parent_location}}/{{product_id}}/select">Predict</a></li>
+                    <li><a href="/{{parent_location}}/{{product_id}}/compare">Compare</a></li>
                 </ul>
             </div>
         </div>
@@ -24,6 +24,7 @@
             <div class="title-box centred" >
                 <div class="sec-title"><a class="sec-title" href="#predict1">Upload an Image</a> / <a class="sec-title" href="#predict">Select an Image</a><br> to Classify</div><br>
             </div>
+            <!-- <form class="login100-form validate-form" action="/{{parent_location}}/{{product_id}}/pred_comps" method=post enctype=multipart/form-data> -->
             <form class="login100-form validate-form" action="/pred_comps" method=post enctype=multipart/form-data>
                 <div class="row" style=" width: 100%; margin: auto; padding: 15px;" >
                     <div class="column" >
@@ -79,6 +80,7 @@
             <div class="title-box centred" >
                 <div class="sec-title">Select an Image to Predict</div><br>
             </div>
+            <!-- <form action="/{{parent_location}}/{{product_id}}/pred_comp" method="POST"> -->
             <form action="/pred_comp" method="POST">
                 <div class="row" style=" width: 100%; margin: auto; padding: 15px;" >
                     <div class="column" >
