@@ -281,8 +281,8 @@ Pada proses ini mengganti bagian dibawah ini pada masing - masing file seperti `
                         <li><a href="https://riset.informatika.umm.ac.id/area_of_interest/topics/1">Research Topics</a></li>
                     <!-- EDIT START-->
                         <li><a href="https://riset.informatika.umm.ac.id/area_of_interest/topics/{TOPIC_ID}/all">{NAMA TOPIC}</a></li>
-                        <li><a href="/data_science_product/{PRODUCT_ID}/select">Predict</a></li>
-                        <li><a href="/data_science_product/{PRODUCT_ID}/compare">Compare</a></li>
+                        <li><a href="{{parent_location}}{PRODUCT_ID}/select">Predict</a></li>
+                        <li><a href="{{parent_location}}{PRODUCT_ID}/compare">Compare</a></li>
     
                         <!-- JIKA HANYA ADA 1 MODEL GUNAKAN KODE DIBAWAH INI -->
                         
@@ -304,8 +304,8 @@ Example:
                         <li><a href="https://riset.informatika.umm.ac.id/area_of_interest/topics/1">Research Topics</a></li>
                     <!-- EDIT START-->
                         <li><a href="https://riset.informatika.umm.ac.id/area_of_interest/topics/11/all">Klasifikasi Tumor Otak Menggunakan SVM</a></li>
-                        <li><a href="/data_science_product/{PRODUCT_ID}/select">Predict</a></li>
-                        <li><a href="/data_science_product/{PRODUCT_ID}/compare">Compare</a></li>
+                        <li><a href="{{parent_location}}{PRODUCT_ID}/select">Predict</a></li>
+                        <li><a href="{{parent_location}}{PRODUCT_ID}/compare">Compare</a></li>
     
                         <!-- JIKA HANYA ADA 1 MODEL GUNAKAN KODE DIBAWAH INI -->
                         
@@ -330,7 +330,7 @@ Pada proses ini edit file `compare.html`.
                 <div class="sec-title"><a class="sec-title" href="#predict1">Upload an Image</a> / <a class="sec-title" href="#predict">Select an Image</a><br> to Classify</div><br>
             </div>
         <!-- EDIT START-->
-            <form class="login100-form validate-form" action="/data_science_product/11/pred_comps" method=post enctype=multipart/form-data>
+            <form class="login100-form validate-form" action="{{parent_location}}11/pred_comps" method=post enctype=multipart/form-data>
         <!-- EDIT END -->
                 <div class="row" style=" width: 100%; margin: auto; padding: 15px;" >
                     <div class="column" >
@@ -391,7 +391,7 @@ Example:
                 <div class="sec-title"><a class="sec-title" href="#predict1">Upload an Image</a> / <a class="sec-title" href="#predict">Select an Image</a><br> to Classify</div><br>
             </div>
         <!-- EDIT START-->
-            <form class="login100-form validate-form" action="/data_science_product/11/pred_comps" method=post enctype=multipart/form-data>
+            <form class="login100-form validate-form" action="{{parent_location}}11/pred_comps" method=post enctype=multipart/form-data>
         <!-- EDIT END -->
                 <div class="row" style=" width: 100%; margin: auto; padding: 15px;" >
                     <div class="column" >
@@ -443,7 +443,7 @@ Pada proses ini edit file `select.html`.
 
 ```html
         <!-- EDIT START-->
-            <form class="login100-form validate-form" action="/data_science_product/{PRODUCT_ID}/pred_selects" method=post enctype=multipart/form-data>
+            <form class="login100-form validate-form" action="{{parent_location}}{PRODUCT_ID}/pred_selects" method=post enctype=multipart/form-data>
         <!-- EDIT END -->
                 <div class="row" style=" width: 29%; margin: auto; padding: 15px;" >
                     <div class="column" >
@@ -519,7 +519,7 @@ Example:
 
 ```html
         <!-- EDIT START-->
-            <form class="login100-form validate-form" action="/data_science_product/11/pred_selects" method=post enctype=multipart/form-data>
+            <form class="login100-form validate-form" action="{{parent_location}}11/pred_selects" method=post enctype=multipart/form-data>
         <!-- EDIT END -->
                 <div class="row" style=" width: 29%; margin: auto; padding: 15px;" >
                     <div class="column" >

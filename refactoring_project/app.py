@@ -17,21 +17,12 @@ from flask import Flask, request, render_template
 # internal package
 from src.service import service
 
+# initialize global function alias
 GetFilePathAndName              = service._getFilePathWithName
 ModelDictionary                 = service._getDictModel
 QueryImageList                  = service.GetListOfQueryImage
-
-"""
-LOCAL CONFIG!
-    Comment this part before releasing your application in production
-"""
-app = Flask(__name__)
-
-"""
-PRODUCTION CONFIG!
-    uncomment and change the static_url_path to into url project path
-"""
-# app = Flask(__name__, static_url_path='/data_science_product/static')
+PredictRGBImageList             = service.PredictInputRGBImageList
+PredicRGBImage                  = service.PredictInputRGBImage
 
 """
 GLOBAL CONSTANT VARIABLE!
@@ -49,6 +40,21 @@ MODEL_PATH          = "static/model/"
 QUERY_IMAGE_PATH    = "static/queryImage/"
 QUERY_UPLOAD_IMAGE  = "static/queryUpload/"
 
+# IMPORTANT!
+# please change this part into your parent path destination of web service configuration
+PARENT_LOCATION     = "/data_science_product/"
+
+"""
+LOCAL CONFIG!
+    Comment this part before releasing your application in production
+"""
+app = Flask(__name__)
+
+"""
+PRODUCTION CONFIG!
+    uncomment and change the static_url_path to into url project path
+"""
+# app = Flask(__name__, static_url_path=PARENT_LOCATION+'static')
 
 @app.after_request
 def add_header(r):
@@ -81,7 +87,7 @@ def predict_compare():
     PREDICT_COMPARE : handle POST prediction of selected image in case comparing several models
                     * choosenModelList get list of selected models from frontend
                     * getImageFile get selected image from frontend
-                    * service.PredictInputRGBImageList() provide a collection of prediction time and result
+                    * PredictRGBImageList() provide a collection of prediction time and result
                     * predictionTime hold prediction time and
                     * predictionResult hold prediction result for each selected model
                     * render compare model result page with a collection of data such
@@ -89,8 +95,9 @@ def predict_compare():
     """
     choosenModelList                 = request.form.getlist('select_model') 
     getImageFile                     = request.form.get('input_image') 
-    predictionResult, predictionTime = service.PredictInputRGBImageList(choosenModelList, MODEL_PATH, getImageFile)
-    return render_template('/result_compare.html', labels=LABELS, probs=predictionResult, model=choosenModelList, run_time=predictionTime, img=getImageFile[7:])
+    predictionResult, predictionTime = PredictRGBImageList(choosenModelList, MODEL_PATH, getImageFile)
+    return render_template('/result_compare.html', labels = LABELS, probs = predictionResult, parent_location = PARENT_LOCATION,
+                            model = choosenModelList, run_time = predictionTime, img = getImageFile[7:])
 
 @app.route('/pred_comps', methods=['POST'])
 def predicts_compare():
@@ -98,7 +105,7 @@ def predicts_compare():
     PREDICTS_COMPARE : handle POST prediction of uploaded image in case comparing several models
                      * choosenModelList get list of selected models from frontend
                      * getImageFile get uploaded image from frontend and save as temp image 
-                     * service.PredictInputRGBImageList() provide a collection of prediction time and result
+                     * PredictRGBImageList() provide a collection of prediction time and result
                      * predictionTime hold prediction time and 
                      * predictionResult hold prediction result for each selected model
                      * render compare model result page with a collection of data such
@@ -106,15 +113,18 @@ def predicts_compare():
     """
     choosenModelList                 = request.form.getlist('select_model')
     getImageFile                     = request.files["file"]
-    getImageFile.save(GetFilePathAndName(QUERY_UPLOAD_IMAGE, 'temp.jpg'))
-    predictionResult, predictionTime = service.PredictInputRGBImageList(choosenModelList, MODEL_PATH, getImageFile)
-    return render_template('/result_compare.html', labels=LABELS, probs=predictionResult, model=choosenModelList, run_time=predictionTime, img='temp.jpg')
+    relocationImageFile              = GetFilePathAndName(QUERY_UPLOAD_IMAGE, 'temp.jpg')
+    getImageFile.save(relocationImageFile)
+    predictionResult, predictionTime = PredictRGBImageList(choosenModelList, MODEL_PATH, getImageFile)
+    return render_template('/result_compare.html', labels = LABELS, probs = predictionResult, parent_location = PARENT_LOCATION,
+                            model = choosenModelList, run_time = predictionTime, img = relocationImageFile)
 
 @app.route('/select')
 def select():
     """
         Render UI template for select model home page
-        This part will provide a collection of model name and path, also class name of each example of query images and image full path.
+        This part will provide a collection of model name and path, also class name of each 
+        example of query images and image full path.
     """
     _, listModel, _             = ModelDictionary(MODEL_PATH)
     imageClass, _, imageQuery   = QueryImageList(QUERY_IMAGE_PATH)
@@ -126,7 +136,7 @@ def predict_select():
     PREDICT_SELECT  : handle POST prediction of selected image
                     * choosenModelList get selected models from frontend
                     * getImageFile get an selected image from frontend
-                    * service.PredictInputRGBImage() give prediction time and result
+                    * PredicRGBImage() give prediction time and result
                     * predictionTime hold prediction time and 
                     * predictionResult hold prediction result for each selected model
                     * render compare model result page with a collection of data such
@@ -134,8 +144,9 @@ def predict_select():
     """
     choosenModel                     = request.form['select_model']
     getImageFile                     = request.form.get('input_image')
-    predictionResult, predictionTime = service.PredictInputRGBImage(choosenModel, MODEL_PATH, getImageFile)
-    return render_template('/result_select.html', labels=LABELS, probs=predictionResult, model=choosenModel, run_time=predictionTime, img=getImageFile[7:])
+    predictionResult, predictionTime = PredicRGBImage(choosenModel, MODEL_PATH, getImageFile)
+    return render_template('/result_select.html', labels = LABELS, probs = predictionResult, parent_location = PARENT_LOCATION,
+                            model = choosenModel, run_time = predictionTime, img = getImageFile[7:])
 
 @app.route('/pred_selects', methods=['POST'])
 def predicts_select():
@@ -143,7 +154,7 @@ def predicts_select():
     PREDICTS_SELECT : handle POST prediction of uploaded image
                     * choosenModelList get selected models from frontend
                     * getImageFile get an uploaded image from frontend and save as temp image 
-                    * service.PredictInputRGBImage() give prediction time and result
+                    * PredicRGBImage() give prediction time and result
                     * predictionTime hold prediction time and
                     * predictionResult hold prediction result for each selected model
                     * render compare model result page with a collection of data such 
@@ -151,9 +162,11 @@ def predicts_select():
     """
     choosenModel                     = request.form['select_model']
     getImageFile                     = request.files["file"]
-    getImageFile.save(GetFilePathAndName(QUERY_UPLOAD_IMAGE, 'temp.jpg'))
-    predictionResult, predictionTime = service.PredictInputRGBImage(choosenModel, MODEL_PATH, getImageFile)
-    return render_template('/result_select.html', labels=LABELS, probs=predictionResult, model=choosenModel, run_time=predictionTime, img='temp.jpg')
+    relocationImageFile              = GetFilePathAndName(QUERY_UPLOAD_IMAGE, 'temp.jpg')
+    getImageFile.save(relocationImageFile)
+    predictionResult, predictionTime = PredicRGBImage(choosenModel, MODEL_PATH, getImageFile)
+    return render_template('/result_select.html', labels = LABELS, probs = predictionResult, parent_location = PARENT_LOCATION,
+                            model = choosenModel, run_time = predictionTime, img = relocationImageFile)
 
 if __name__ == "__main__": 
     # LOCAL DEVELOPMENT CONFIG
