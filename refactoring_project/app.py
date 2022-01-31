@@ -7,6 +7,14 @@ Use this part as main service endpoint for managing raw data from frontend into 
 It would provide a collection of data such (prediction class, metric performance etc) 
 from service backend into frontend.
 
+READ ME FIRST !!
+
+you are only need to change line of code with (# TO CHANGE) without () marking line. 
+And you only need to change the app.py file as long as your project is Deeplearning for image classification.
+You can change, add or remove any function each layer as you need (as long as it's not affect any service an attributes in this project)
+To get better understanding of the whole function that might be you need please kindly check and read the documentation first!
+
+@cham_is_fum
 """
 
 # python package
@@ -21,8 +29,14 @@ from src.service import service
 GetFilePathAndName              = service._getFilePathWithName
 ModelDictionary                 = service._getDictModel
 QueryImageList                  = service.GetListOfQueryImage
-PredictRGBImageList             = service.PredictInputRGBImageList
-PredicRGBImage                  = service.PredictInputRGBImage
+
+""" Uncomment to use this part if you using RGB imgae as input prediction"""
+PredictRGBImageList             = service.PredictInputRGBImageList  # TO CHANGE 
+PredicRGBImage                  = service.PredictInputRGBImage  # TO CHANGE 
+
+""" Uncomment to use this part if you using grayscale imgae as input prediction"""
+# PredictGrayImageList            = service.PredictInputGrayImageList  # TO CHANGE 
+# PredicGrayImage                 = service.PredictInputGrayImage  # TO CHANGE 
 
 """
 GLOBAL CONSTANT VARIABLE!
@@ -34,31 +48,35 @@ GLOBAL CONSTANT VARIABLE!
     * query_image_path is a global varible for query image path
     * query_upload_image is a global varible for uploaded query image path
 """
-CLASS_DICT          = {'GLIOMA': 0, 'MENINGIOMA': 1, 'PITUITARY': 2}
+CLASS_DICT          = {'GLIOMA': 0, 'MENINGIOMA': 1, 'PITUITARY': 2} # TO CHANGE
 LABELS              = list(CLASS_DICT.keys())
 MODEL_PATH          = "static/model/"
 QUERY_IMAGE_PATH    = "static/queryImage/"
 QUERY_UPLOAD_IMAGE  = "static/queryUpload/"
 
-# IMPORTANT!
-# please change this part into your product detail and configuration
-PARENT_LOCATION     = "data_science_product" # refers to parent of project web service configuration
-TOPIC_NAME          = "Brain Tumor Disease" # represent 
-AREA_OF_INTEREST_ID = "1"
-TOPIC_ID            = "1"
-PRODUCT_ID          = "1"
+"""
+IMPORTANT!
+please change this part into your product detail and configuration
+"""
+# TO CHANGE -> start
+PARENT_LOCATION     = "data_science_product" # TO CHANGE # represent to parent of project web service configuration 
+TOPIC_NAME          = "Brain Tumor Disease"  # TO CHANGE # represent topic name 
+AREA_OF_INTEREST_ID = "1"                    # TO CHANGE # represent area of interest id 
+TOPIC_ID            = "1"                    # TO CHANGE # represent topic id 
+PRODUCT_ID          = "1"                    # TO CHANGE # represent product id 
+# TO CHANGE -> end
 
 """
 LOCAL CONFIG!
     Comment this part before releasing your application in production
 """
-app = Flask(__name__)
+app = Flask(__name__) # TO CHANGE 
 
 """
 PRODUCTION CONFIG!
     uncomment and change the static_url_path to into url project path
 """
-# app = Flask(__name__, static_url_path=PARENT_LOCATION+'static')
+# app = Flask(__name__, static_url_path=PARENT_LOCATION+'static') # TO CHANGE 
 
 @app.after_request
 def add_header(r):
@@ -101,7 +119,8 @@ def predict_compare():
     """
     choosenModelList                 = request.form.getlist('select_model') 
     getImageFile                     = request.form.get('input_image') 
-    predictionResult, predictionTime = PredictRGBImageList(choosenModelList, MODEL_PATH, getImageFile)
+    predictionResult, predictionTime = PredictRGBImageList(choosenModelList, MODEL_PATH, getImageFile)  # TO CHANGE 
+    # predictionResult, predictionTime = PredictGrayImageList(choosenModelList, MODEL_PATH, getImageFile)  # TO CHANGE 
     return render_template('/result_compare.html', labels = LABELS, probs = predictionResult, parent_location = PARENT_LOCATION,
                             topic_name = TOPIC_NAME, aoi_id = AREA_OF_INTEREST_ID, topic_id = TOPIC_ID, 
                             product_id = PRODUCT_ID, model = choosenModelList, run_time = predictionTime, img = getImageFile[7:])
@@ -122,7 +141,8 @@ def predicts_compare():
     getImageFile                     = request.files["file"]
     relocationImageFile              = GetFilePathAndName(QUERY_UPLOAD_IMAGE, 'temp.jpg')
     getImageFile.save(relocationImageFile)
-    predictionResult, predictionTime = PredictRGBImageList(choosenModelList, MODEL_PATH, getImageFile)
+    predictionResult, predictionTime = PredictRGBImageList(choosenModelList, MODEL_PATH, getImageFile)  # TO CHANGE 
+    # predictionResult, predictionTime = PredictGrayImageList(choosenModelList, MODEL_PATH, getImageFile)  # TO CHANGE 
     return render_template('/result_compare.html', labels = LABELS, probs = predictionResult, parent_location = PARENT_LOCATION,
                             topic_name = TOPIC_NAME, aoi_id = AREA_OF_INTEREST_ID, topic_id = TOPIC_ID, 
                             product_id = PRODUCT_ID, model = choosenModelList, run_time = predictionTime, img = relocationImageFile)
@@ -154,7 +174,8 @@ def predict_select():
     """
     choosenModel                     = request.form['select_model']
     getImageFile                     = request.form.get('input_image')
-    predictionResult, predictionTime = PredicRGBImage(choosenModel, MODEL_PATH, getImageFile)
+    predictionResult, predictionTime = PredicRGBImage(choosenModel, MODEL_PATH, getImageFile) # TO CHANGE 
+    # predictionResult, predictionTime = PredicGrayImage(choosenModel, MODEL_PATH, getImageFile)  # TO CHANGE 
     return render_template('/result_select.html', labels = LABELS, probs = predictionResult, parent_location = PARENT_LOCATION,
                             topic_name = TOPIC_NAME, aoi_id = AREA_OF_INTEREST_ID, topic_id = TOPIC_ID, 
                             product_id = PRODUCT_ID, model = choosenModel, run_time = predictionTime, img = getImageFile[7:])
@@ -175,18 +196,18 @@ def predicts_select():
     getImageFile                     = request.files["file"]
     relocationImageFile              = GetFilePathAndName(QUERY_UPLOAD_IMAGE, 'temp.jpg')
     getImageFile.save(relocationImageFile)
-    predictionResult, predictionTime = PredicRGBImage(choosenModel, MODEL_PATH, getImageFile)
+    predictionResult, predictionTime = PredicRGBImage(choosenModel, MODEL_PATH, getImageFile) # TO CHANGE 
+    # predictionResult, predictionTime = PredicGrayImage(choosenModel, MODEL_PATH, getImageFile)  # TO CHANGE 
     return render_template('/result_select.html', labels = LABELS, probs = predictionResult, parent_location = PARENT_LOCATION,
                             topic_name = TOPIC_NAME, aoi_id = AREA_OF_INTEREST_ID, topic_id = TOPIC_ID, 
                             product_id = PRODUCT_ID, model = choosenModel, run_time = predictionTime, img = relocationImageFile)
 
 if __name__ == "__main__": 
     # LOCAL DEVELOPMENT CONFIG
-    app.run(debug=True, host='0.0.0.0', port=5000)
-"""
-    PRODUCTION CONFIG
-    app.run(debug=False, host='0.0.0.0', port=2000, 
-    # handle ssl cert an keys
-            ssl_context = ('/home/admin/conf/web/ssl.riset.informatika.umm.ac.id.crt',
-                          '/home/admin/conf/web/ssl.riset.informatika.umm.ac.id.key'))
-"""
+    app.run(debug=True, host='0.0.0.0', port=5000) # TO CHANGE 
+    
+    # PRODUCTION CONFIG    
+    # app.run(debug=False, host='0.0.0.0', port=2000, # TO CHANGE 
+    # HANDLE SSL CERT AND KEYS
+    #         ssl_context = ('/home/admin/conf/web/ssl.riset.informatika.umm.ac.id.crt', # TO CHANGE 
+    #                       '/home/admin/conf/web/ssl.riset.informatika.umm.ac.id.key')) # TO CHANGE 
