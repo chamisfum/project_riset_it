@@ -1,5 +1,5 @@
 # Project Documentation
-### Clean Code IRC Deployment
+**Clean Code IRC Implementation**
 
 
 ## Motivation and Brief
