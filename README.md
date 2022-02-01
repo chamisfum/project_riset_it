@@ -45,6 +45,19 @@ refactoring_project
 ```
 
 
+## Description
+
+* `src`                berisi seluruh fungsi dan service utama pada aplikasi
+* `src/infra`          merupakan folder penyimpanan layanan fungsi `infrastructure layer` yang terdiri dari barisan fungsi yang menyediakan layanan micro untuk setiap proses yang diperlukan (berisi fungsi sederhana yang hanya dapat melakukan sebuah tugas spesifik tertentu)
+* `src/config`         merupakan folder penyimpanan layanan fungsi `configuration layer` yang terdiri dari barisan fungsi yang berperan sebagai jembatan antara `infrastructure layer` dan `service layer`. (helper layer)
+* `src/service`        merupakan folder penyimpanan layanan fungsi `service layer` yang terdiri dari barisan fungsi yang menyediakan service atau layanan kompleks tertentu yang akan digunakan oleh `application layer` untuk mengolah dan mendapatkan datanya.
+* `static/model`       berisi seluruh model dan bobot yang digunakan dalam aplikasi
+* `static/queryImage`  berisi seluruh contoh gambar query untuk prediksi (setiap kelas data minimal terwakili 1 gambar yang tersimpan dalam folder ini)
+* `static/queryUpload` berisi temporary uplaod gambar query yang akan diprediksi 
+* `app.py`             `application layer` yang bertugas sebagai routing dan perantara user interface (UI) atau antrmuka pengguna dengan backend atau `service layer`.
+* `requirements.txt`   daftar package python utama yang digunakan dalam applikasi anda
+
+
 ## File Naming
 
 Anda dapat menemukan semua model dan bobot dalam folder `/static/model/`. Hapus saja file apa pun di folder ini dan ubah dengan milik Anda (model dan bobot *jika ada)
