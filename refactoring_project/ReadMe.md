@@ -50,6 +50,13 @@ refactoring_project
     * `virtualenv [name of your new virtual environment]`
     * `cd [name of your new virtual environment]`
     * `source bin/activate`
+    * `cd ..`
+    * `cd refactoring_project`
+* Install python requirements package
+    * `pip install -r requirements.txt`
+* Run the `app.py`
+    * `python app.py`
+* Check on your web browser and try to access this ip [`127.0.0.1:5000`](127.0.0.1:5000)
 
 ```python
 

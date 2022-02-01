@@ -223,7 +223,7 @@ def predicts_select():
 
 if __name__ == "__main__": 
     # LOCAL DEVELOPMENT CONFIG
-    app.run(debug=True, host='0.0.0.0', port=5000) # TO CHANGE 
+    app.run(debug=True, host='127.0.0.1', port=5000) # TO CHANGE 
     
     # PRODUCTION CONFIG    
     # app.run(debug=False, host='0.0.0.0', port=2000, # TO CHANGE 
