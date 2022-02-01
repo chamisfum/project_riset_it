@@ -2,7 +2,7 @@
 
 ## Motivation and Brief
 
-<style>Project ini menyediakan package module python untuk melakukan deployment model `Deep Learning Image Classification` menggunakan Flask micro framework. Goals utama dari project ini adalah menyediakan arsitektur aplikasi flask yang bersih dan mudah untuk dimplementasikan untuk project machine learning maupun deep learning. Clean Code arsitektur menjadi motivasi utama untuk membangun project ini. Sehingga dalam project ini kami berusaha semaksimal mungkin untuk dapat menerapkan arsitektur Clean Code sebagai reverensi silahkan baca dokumentasi Clean Code [disini](https://blog.cleancoder.com/uncle-bob/2012/08/13/the-clean-architecture.html){text-align: justify}</style>
+Project ini menyediakan package module python untuk melakukan deployment model `Deep Learning Image Classification` menggunakan Flask micro framework. Goals utama dari project ini adalah menyediakan arsitektur aplikasi flask yang bersih dan mudah untuk dimplementasikan untuk project machine learning maupun deep learning. Clean Code arsitektur menjadi motivasi utama untuk membangun project ini. Sehingga dalam project ini kami berusaha semaksimal mungkin untuk dapat menerapkan arsitektur Clean Code sebagai reverensi silahkan baca dokumentasi Clean Code [disini](https://blog.cleancoder.com/uncle-bob/2012/08/13/the-clean-architecture.html)
 
 ## Structure
 
