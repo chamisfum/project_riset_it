@@ -1,33 +1,50 @@
-## Dokumentasi
+# Clean Code IRC Deployment
 
-Dalam kode ini telah disediakan kode untuk deploy image classification menggunakan flask (loacal / rilis) dengan menggunakan kode ini kalian hanya perlu import paket `src.config` untuk melakukan preprocessing gambar RGB dan Grayscale, Predict Model Sigmoid dan Softmax, Compare dan Select Model, Select Gambar Query.
+## Motivation and Brief
 
+Project ini menyediakan package module python untuk melakukan deployment model `Deep Learning Image Classification` menggunakan Flask micro framework. Goals utama dari project ini adalah menyediakan arsitektur aplikasi flask yang bersih dan mudah untuk dimplementasikan untuk project machine learning maupun deep learning. Clean Code arsitektur menjadi motivasi utama untuk membangun project ini. Sehingga dalam project ini kami berusaha semaksimal mungkin untuk dapat menerapkan arsitektur Clean Code sebagai reverensi silahkan baca dokumentasi Clean Code [disini](https://blog.cleancoder.com/uncle-bob/2012/08/13/the-clean-architecture.html)
+
+## Structure
+
+```html
+
+refactoring_project
+    ├───src
+    │   ├───config
+    │   │   ├───__init__.py
+    │   │   └───config.py
+    │   ├───infra
+    │   │   ├───__init__.py
+    │   │   └───infra.py
+    │   ├───service
+    │   │   ├───__init__.py
+    │   │   └───service.py
+    │   └───__init__.py
+    ├───static
+    │   ├───model
+    │   │   ├───ExampleA_model.h5
+    │   │   ├───ExampleB_weight.h5
+    │   │   └───ExampleB_model.json
+    │   ├───queryImage
+    │   │   ├───ClassA_1.jpg
+    │   │   ├───ClassB_2.jpg
+    │   │   └───ClassC_3.jpg
+    │   └───queryUpload
+    │       └───temp.jpg
+    ├───templates
+    │   ├───base.html
+    │   ├───base2.html
+    │   ├───compare.html
+    │   ├───result_compare.html
+    │   ├───result_select.html
+    │   └───select.html
+    ├───app.py
+    └───requirements.txt
 ```
-from src import config 
-""" import paket untuk klasifikasi : preprocessing RGB dan Grayscale, 
-Predict Model Sigmoid dan Softmax, Compare dan Select Model, Select Gambar
-"""
 
-class_list     = {'GLIOMA': 0, 'MENINGIOMA': 1, 'PITUITARY': 2} 
-""" Ganti dengan nama kelas data yang urutannya mengikuti hukum abjad 
-    (key = nama kelas, value = index kelas dalam data generator)
-"""
-path           = "static/model/" # path lokasi menyimpan model
-queryImagePath = "static/queryImage/" # path lokasi penyimpanan contoh query image
-```
+## Prerequisite 
 
-Ganti nama model dan gambar query dengan pola penamaan sbb :
-- nama query gambar `namaKelas_namaGambar.jpg` (gambar boleh berekstensi jpg, png, jpeg, grayscale atau RGB)
-- nama model `namaModel_model.h5` atau `namaModel_model.hdf5` (untuk hdf5 model) atau `namaModel_model.json` (untuk model json) 
-- nama bobot (weight) `nameWeight_weight.h5`
-
-**Untuk Sigmoid model silahkan hapus bagian tabel performa di template html**
-
-
-Happy Coding :)
-
-
-# Documentation
+# Documentationmarkdown
 
 This part is an application for deploying image classification using Deep Learning algorithm. 
 Use this part as main service endpoint for managing raw data from frontend into service backend. 

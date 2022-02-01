@@ -1,5 +1,4 @@
-# NEW README COMMING SOON
-# EXP README
+# This is expired Readme
 Riset Informatika Universitas Muhammadiyah Malang / Informatics Research Center
 
 <p align="center">
