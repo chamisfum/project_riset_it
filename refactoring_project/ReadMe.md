@@ -8,38 +8,38 @@ Project ini menyediakan package module python untuk melakukan deployment model `
 
 ```html
 
-refactoring_project
-    ├───src
-    │   ├───config
-    │   │   ├───__init__.py
-    │   │   └───config.py
-    │   ├───infra
-    │   │   ├───__init__.py
-    │   │   └───infra.py
-    │   ├───service
-    │   │   ├───__init__.py
-    │   │   └───service.py
-    │   └───__init__.py
-    ├───static
-    │   ├───model
-    │   │   ├───ExampleA_model.h5
-    │   │   ├───ExampleB_weight.h5
-    │   │   └───ExampleB_model.json
-    │   ├───queryImage
-    │   │   ├───ClassA_1.jpg
-    │   │   ├───ClassB_2.jpg
-    │   │   └───ClassC_3.jpg
-    │   └───queryUpload
-    │       └───temp.jpg
-    ├───templates
-    │   ├───base.html
-    │   ├───base2.html
-    │   ├───compare.html
-    │   ├───result_compare.html
-    │   ├───result_select.html
-    │   └───select.html
-    ├───app.py
-    └───requirements.txt
+REFACTORING_PROJECT
+├───src
+│   ├───config
+│   │   ├───__init__.py
+│   │   └───config.py
+│   ├───infra
+│   │   ├───__init__.py
+│   │   └───infra.py
+│   ├───service
+│   │   ├───__init__.py
+│   │   └───service.py
+│   └───__init__.py
+├───static
+│   ├───model
+│   │   ├───ExampleA_model.h5
+│   │   ├───ExampleB_weight.h5
+│   │   └───ExampleB_model.json
+│   ├───queryImage
+│   │   ├───ClassA_1.jpg
+│   │   ├───ClassB_2.jpg
+│   │   └───ClassC_3.jpg
+│   └───queryUpload
+│       └───temp.jpg
+├───templates
+│   ├───base.html
+│   ├───base2.html
+│   ├───compare.html
+│   ├───result_compare.html
+│   ├───result_select.html
+│   └───select.html
+├───app.py
+└───requirements.txt
 ```
 
 ## Prerequisite 
