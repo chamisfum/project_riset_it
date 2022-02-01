@@ -1,570 +1,191 @@
-# This is expired Readme
-Riset Informatika Universitas Muhammadiyah Malang / Informatics Research Center
+# Clean Code IRC Deployment
 
-<p align="center">
-  <img src="main-logo.png" alt="Logo Riset Informatika"/>
-</p>
 
-Riset Informatika Universitas Muhammadiyah Malang adalah sebuah platform ...
+## Motivation and Brief
 
-## Table of Contents
+Project ini menyediakan package module python untuk melakukan deployment model `Deep Learning Image Classification` menggunakan Flask micro framework. Goals utama dari project ini adalah menyediakan arsitektur aplikasi flask yang bersih dan mudah untuk dimplementasikan untuk project machine learning maupun deep learning. Clean Code arsitektur menjadi motivasi utama untuk membangun project ini. Sehingga dalam project ini kami berusaha semaksimal mungkin untuk dapat menerapkan arsitektur Clean Code sebagai reverensi silahkan baca dokumentasi Clean Code [disini](https://blog.cleancoder.com/uncle-bob/2012/08/13/the-clean-architecture.html)
 
-- [Manual Book](#manual-book)
-- [Installation](#installation)
-    - [Create Virtual Environment with virtualenv](#create-env-virtualenv)
-        - [Activate virtualenv with Windows](#activate-virtualenv-windows)
-        - [Activate virtualenv with Linux or MacOS](#activate-virtualenv-linux-macos)
-    - [Create Virtual Environment with Anaconda](#create-env-conda)
-    - [Install Library](#install-library)
-- [To Do List](#todo-list)
-- [Run Flask on Localhost](#run-flask-local)
 
-## Manual Book
-
-- [Researcher Manual Book](https://drive.google.com/file/d/14t3G5CNSveTThrlBv7JyKfhUKF16J9w3/view)
-- [Public Guide Book](https://drive.google.com/file/d/1UIFmSPu-YoRmr2JkFj5NXKB-iFYZRC-W/view)
-
-## Installation
-
-Install terlebih dahulu `requirements.txt` di environment masing - masing atau membuat virtual environment terlebih dahulu dengan `virtualenv` atau `Anaconda`.
-
-### Create Virtual Environment with virtualenv
-
-```sh
-pip install virtualenv
-virtualenv project-riset-it
-```
-
-### Activate virtualenv with Windows
-```sh
-\pathto\project-riset-it\Scripts\activate.bat
-```
-
-### Activate virtualenv with Linux or MacOS
-```sh
-source project-riset-it/bin/activate
-```
-
-### Create Virtual Environment with Anaconda
-```sh
-conda create --name project-riset-it
-conda activate project-riset-it
-```
-
-### Install Library
-
-```py
-pip install -r requirements.txt
-```
-
-## To Do List
-
-Beberapa Code yang harus diganti sesuai dengan kebutuhan masing - masing. Tetapi ada beberapa function atau method yang tidak harus sesuai dengan repository ini, sesuaikan dengan use case masing - masing.
-
-- [Python](#python)
-    - [Ganti NIM](#ganti-nim)
-    - [Ganti Model](#ganti-model)
-    - [Ganti Preprocessing](#ganti-preprocessing)
-    - [Ganti Label](#ganti-label)
-    - [Menambahkan Function Sendiri](#tambah-function) (Optional)
-- [HTML](#html)
-    - [NIM](#nim)
-    - [General](#general)
-    - [Compare](#compare)
-    - [Select](#select)
-
-### Upload Your Model
-
-Ada dua jenis format model yang bisa dipakai disini, yaitu `.json` dan `.h5`. Masing - masing model di upload di folder `simpan_disini/static/model/nim/` untuk model dengan format `.h5`, jika model menggunakan `.json` bisa upload di folder `simpan_disini/static/model/nim/js/`.
-
-## Python
-----------
-
-### Ganti NIM
-
-Mengganti semua function Python di dalam Flask dan folder path yang mengandung `_nim` dan `nim` dengan NIM masing - masing.
-
-***simpan_disini/main_example.py***
-
-```py
-@app.route('/{PRODUCT_ID}/compare')
-def f_nim_compare():
-    return render_template('/f_nim/compare.html', )
-
-@app.route('/{PRODUCT_ID}/pred_comp', methods=['POST'])
-def f_nim_predict_compare(): # Ganti nim dengan NIM anda misal : _2132131312
-    ...
-    return f_nim_predict_result_compare(respon_model, chosen_model, running_time, filename[7:])
-
-@app.route('/{PRODUCT_ID}/select')
-def f_nim_select():
-    return render_template('/nim/select.html', )
-
-@app.route('/{PRODUCT_ID}/pred_select', methods=['POST'])
-def f_nim_predict_select():
-    ...
-    return f_nim_predict_result_select(chosen_model, runtimes, respon_model, filename[7:])
-```
-
-Example:
-
-```py
-@app.route('/{PRODUCT_ID}/compare')
-def f_201710370311000_compare():
-    return render_template('/f_201710370311000/compare.html', )
-
-@app.route('/{PRODUCT_ID}/pred_comp', methods=['POST'])
-def f_201710370311000_predict_compare(): # Ganti nim dengan NIM anda misal : _2132131312
-    ...
-    return f_201710370311000_predict_result_compare(respon_model, chosen_model, running_time, filename[7:])
-
-@app.route('/{PRODUCT_ID}/select')
-def f_201710370311000_select():
-    return render_template('/nim/select.html', )
-
-@app.route('/{PRODUCT_ID}/pred_select', methods=['POST'])
-def f_201710370311000_predict_select():
-    ...
-    return f_201710370311000_predict_result_select(chosen_model, runtimes, respon_model, filename[7:])
-```
-
-### Ganti Model
-
-Mengganti key dan value pada dictionary model sesuai dengan kebutuhan masing - masing. Jika model dengan format `.json` juga harus menambahkan **weights** dari model dengan format `.h5`. Ada dua jenis **function** yang disediakan pada repository ini, yaitu **Compare Model** dan **Select Model**. Jika ingin melakukan compare, edit key dan value pada function `_compare()` dan jika model yang digunakan hanya satu atau ingin menggunakan salah satu model yang diinginkan, gunakan function `_select()`.
-
-***simpan_disini/main_example.py***
-
-```py
-@app.route('/{PRODUCT_ID}/pred_select', methods=['POST'])
-def f_nim_predict_select():
-    
-    chosen_model = request.form['select_model']
-    model_dict = {'Nama Model 1'   :   'static/model/nim/model1.h5', # Isi dengan Nama model dan path lokasi model disimpan (Pastikan menyimpan model dalam folder /static/model/nim/namamodel.h5)
-                  'Nama Model 2'   :   'static/model/nim/model2.h5',
-                  'Nama json Model 1' :   ['static/model/nim/js/model_js1.json','static/model/nim/js/model_weight_js1.h5'],  # Jika pakai Json dan weight model saat menyimpan model gunakan kode ini
-                  'Nama json Model 2'    :   ['static/model/nim/js/model_js2.json','static/model/nim/js/model_weight_js2.h5'] # Beri kode nama "_js" tanpa petik di akhir nama model 
-                  }
-    ...
-```
-
-Example:
-
-```py
-@app.route('/{PRODUCT_ID}/pred_select', methods=['POST'])
-def f_nim_predict_select():
-    
-    chosen_model = request.form['select_model']
-    model_dict = {'ResNet50'   :   'static/model/nim/resnet50.h5', # Isi dengan Nama model dan path lokasi model disimpan (Pastikan menyimpan model dalam folder /static/model/nim/namamodel.h5)
-                  'BaseCNN'   :   'static/model/nim/BaseCNN.h5',
-                  'ModelKeren' :   ['static/model/nim/js/ModelKeren_js.json','static/model/nim/js/ModelKeren_weight_js1.h5'],  # Jika pakai Json dan weight model saat menyimpan model gunakan kode ini
-                  'ModelSuperKeren'    :   ['static/model/nim/js/ModelSuperKeren_js.json','static/model/nim/js/ModelSuperKeren_weight_js.h5'] # Beri kode nama "_js" tanpa petik di akhir nama model 
-                  }
-    ...
-```
-
-### Ganti Preprocessing
-
-Pada proses ini, sesuaikan dengan use case masing - masing dan pada saat proses training model.
-
-***simpan_disini/main_example.py***
-
-```py
-@app.route('/{PRODUCT_ID}/pred_select', methods=['POST'])
-def f_nim_predict_select():
-    ...
-    imgs = np.expand_dims(cv2.resize(img, model.layers[0].input_shape[0][1:3] if not model.layers[0].input_shape[1:3] else model.layers[0].input_shape[1:3]).astype('float32') / 255, axis=0)
-```
-
-Example:
-
-```py
-@app.route('/{PRODUCT_ID}/pred_select', methods=['POST'])
-def f_nim_predict_select():
-    image = cv2.threshold(image, 0, 255, cv2.THRESH_BINARY + cv2.THRESH_OTSU)[1]
-
-    return image
-```
-
-### Ganti Label
-
-Mengganti label kelas sesuai dengan use case masing - masing.
-
-***simpan_disini/main_example.py***
-
-```py
-def f_nim_predict_result_select(model, run_time, probs, img):
-    class_list = {'Nama Kelas 1': 0, 'Nama Kelas 2': 1} # isi dengan nama kelas 1 sampai ke n sesuai dengan urutan kelas data pada classification report key di isi dengan nama kelas dan value di isi dengan urutan kelas dimulai dari 0
-    idx_pred = probs.index(max(probs))
-    labels = list(class_list.keys())
-    return render_template('/nim/result_select.html', labels=labels, 
-                            probs=probs, model=model, pred=idx_pred, 
-                            run_time=run_time, img=img)
-```
-
-Example:
-
-```py
-def f_nim_predict_result_select(model, run_time, probs, img):
-    class_list = {'Otsu Thresholding': 0, 'Niblack Thresholding': 1, 'Sauvola Thresholding': 2} # isi dengan nama kelas 1 sampai ke n sesuai dengan urutan kelas data pada classification report key di isi dengan nama kelas dan value di isi dengan urutan kelas dimulai dari 0
-    idx_pred = probs.index(max(probs))
-    labels = list(class_list.keys())
-    return render_template('/nim/result_select.html', labels=labels, 
-                            probs=probs, model=model, pred=idx_pred, 
-                            run_time=run_time, img=img)
-```
-
-### Menambahkan Function Sendiri
-
-Proses ini termasuk optional, karena pada repository ini lebih melakukan demo pada use case Image Classification. Jika use case yang dikerjakan seperti Generative Adversarial Network (GAN), Image Segmentation, dll bisa membuat function sendiri.
-
-Example:
-
-### Create Image Segmentation Function
-
-***simpan_disini/segmentation.py***
-
-```py
-from skimage.filters import threshold_otsu
-
-def otsu_thresh(file, img_width, img_height):
-    '''
-    Konversi image menjadi binary menggunakan metode Otsu Thresholding
-    Parameters
-    ----------
-    file: string
-        Path ke file image yang kita inginkan
-    
-    img_width: int
-        Size untuk width gambar kita
-    
-    img_height: int
-        Size untuk height gambar kita
-    Returns
-    -------
-    binary_global: Boolean
-        masih belum tahu hehe
-    '''
-
-    image = cv2.imread(file, 0)
-    image = cv2.resize(image, (img_width, img_height))
-
-    return cv2.threshold(image, 0, 255, cv2.THRESH_BINARY + cv2.THRESH_OTSU)[1]
-```
-
-***simpan_disini/main_example.py***
-
-```py
-from segmentation import otsu_thresh
-...
-# Apply your own function in here
-```
-
-## HTML
---------
-
-Ada beberapa yang harus diganti, [NIM](#nim), [General](#general), [Compare](#compare), [Select](#select). Base folder ini di `simpan_disini/templates/nim/`.
-
-### NIM
-
-Pada bagian ini, harap mengganti `nim` pada folder `simpan_disini/templates/nim` sesuai dengan NIM masing - masing.
-
-### General
-
-Pada proses ini mengganti bagian dibawah ini pada masing - masing file seperti `compare.html`, `result_compare.html`, `result_select.html`, `select.html`.
+## Structure
 
 ```html
-        <div class="container">
-            <div class="content-box">
-                    <div class="title">Research Product Details</div>
-                    <ul class="bread-crumb">
-                        <li><a href="https://riset.informatika.umm.ac.id">Home</a></li>
-                        <li><a href="https://riset.informatika.umm.ac.id/area_of_interest/{{aoi_id}}">Data Science</a></li>
-                        <li><a href="https://riset.informatika.umm.ac.id/area_of_interest/topics/1">Research Topics</a></li>
-                    <!-- EDIT START-->
-                        <li><a href="https://riset.informatika.umm.ac.id/area_of_interest/topics/{TOPIC_ID}/all">{NAMA TOPIC}</a></li>
-                        <li><a href="{{parent_location}}{PRODUCT_ID}/select">Predict</a></li>
-                        <li><a href="{{parent_location}}{PRODUCT_ID}/compare">Compare</a></li>
-    
-                        <!-- JIKA HANYA ADA 1 MODEL GUNAKAN KODE DIBAWAH INI -->
-                        
-                        <li><a href="https://riset.informatika.umm.ac.id/area_of_interest/topics/{TOPIC_ID}/all">{NAMA TOPIC}</a></li>
-                        <li>Product</li>
-                        
-                    <!-- EDIT END -->
-```
 
-Example:
-
-```html
-        <div class="container">
-            <div class="content-box">
-                    <div class="title">Research Product Details</div>
-                    <ul class="bread-crumb">
-                        <li><a href="https://riset.informatika.umm.ac.id">Home</a></li>
-                        <li><a href="https://riset.informatika.umm.ac.id/area_of_interest/{{aoi_id}}">Data Science</a></li>
-                        <li><a href="https://riset.informatika.umm.ac.id/area_of_interest/topics/1">Research Topics</a></li>
-                    <!-- EDIT START-->
-                        <li><a href="https://riset.informatika.umm.ac.id/area_of_interest/topics/11/all">Klasifikasi Tumor Otak Menggunakan SVM</a></li>
-                        <li><a href="{{parent_location}}{PRODUCT_ID}/select">Predict</a></li>
-                        <li><a href="{{parent_location}}{PRODUCT_ID}/compare">Compare</a></li>
-    
-                        <!-- JIKA HANYA ADA 1 MODEL GUNAKAN KODE DIBAWAH INI -->
-                        
-                        <li><a href="https://riset.informatika.umm.ac.id/area_of_interest/topics/11/all">Klasifikasi Tumor Otak Menggunakan SVM</a></li>
-                        <li>Product</li>
-                        
-                    <!-- EDIT END -->
-            ...
-```
-
-### Compare
-
-Pada proses ini edit file `compare.html`.
-
-***simpan_disini/templates/nim/compare.html***
-
-```html
-    <!-- form-section -->
-    <section class="contact-section" style="padding-top:50px;" id="predict1">
-        <div class="container">
-            <div class="title-box centred" >
-                <div class="sec-title"><a class="sec-title" href="#predict1">Upload an Image</a> / <a class="sec-title" href="#predict">Select an Image</a><br> to Classify</div><br>
-            </div>
-        <!-- EDIT START-->
-            <form class="login100-form validate-form" action="{{parent_location}}11/pred_comps" method=post enctype=multipart/form-data>
-        <!-- EDIT END -->
-                <div class="row" style=" width: 100%; margin: auto; padding: 15px;" >
-                    <div class="column" >
-                        <div class="form-check form-check-inline">
-                            <p style="font-weight: bold; color: black;">Compare Model : </p>
-                        </div>   
-                    </div>
-                    <div class="column" >
-                        <div class="form-check form-check-inline"> 
-                            <div class="checkboxes">
-                            <!-- EDIT START-->
-                                <input type="hidden" name="select_model" id="chose_model" value="model1">
-                                <label style="padding-left:2em"><input name="select_model" type="checkbox" id="chose_model" value='model1'   checked disabled/> <span>Nama Model 1 </span></label>
-                                <label style="padding-left:2em"><input name="select_model" type="checkbox" id="chose_model" value='model2'     /> <span>Nama Model 2 </span></label>
-                                <label style="padding-left:2em"><input name="select_model" type="checkbox" id="chose_model" value='model_js1'  /> <span>Nama json Model 1 </span></label>
-                                <label style="padding-left:2em"><input name="select_model" type="checkbox" id="chose_model" value='model_js2'    /> <span>Nama json Model 2 </span></label>
-                            <!-- EDIT END -->
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            ...
-            <!-- EDIT START-->
-                <div class="row">
-                        <div class="column" style="background-color:rgb(235, 235, 235);">
-                            <p style="text-align: center;">{LABEL DATA}</p>
-                            <input type="hidden" name="input_image" id="count" value="static/main/images/predict/{NIM}/gambar1.jpg" />
-                            <input type="image" name="submit" onclick="change('static/main/images/predict/{NIM}/gambar1.jpg')" style="height: 235px;width: 235px;padding-left: 10%;padding-right: 10%;padding-bottom: 10%;" src="{{ url_for('static', filename='main/images/predict/{NIM}/gambar1.jpg')}}"/>
-                        </div>
-                        <div class="column" style="background-color:rgb(235, 235, 235);">
-                            <p style="text-align: center;">{LABEL DATA}</p>
-                            <input type="image" name="submit" onclick="change('static/main/images/predict/{NIM}/gambar2.jpg')" style="height: 235px;width: 235px;padding-left: 10%;padding-right: 10%;padding-bottom: 10%;" src="{{ url_for('static', filename='main/images/predict/{NIM}/gambar2.jpg')}}"/>
-                        </div>
-                        <div class="column" style="background-color:rgb(235, 235, 235);">
-                            <p style="text-align: center;">{LABEL DATA}</p>
-                            <input type="image" name="submit" onclick="change('static/main/images/predict/{NIM}/gambar3.jpg')" style="height: 235px;width: 235px;padding-left: 10%;padding-right: 10%;padding-bottom: 10%;" src="{{ url_for('static', filename='main/images/predict/{NIM}/gambar3.jpg')}}"/>
-                        </div>
-                        <div class="column" style="background-color:rgb(235, 235, 235);">
-                            <p style="text-align: center;">{LABEL DATA}</p>
-                            <input type="image" name="submit" onclick="change('static/main/images/predict/{NIM}/gambar4.jpg')" style="height: 235px;width: 235px;padding-left: 10%;padding-right: 10%;padding-bottom: 10%;" src="{{ url_for('static', filename='main/images/predict/{NIM}/gambar4.jpg')}}"/>
-                        </div>
-                        <div class="column" style="background-color:rgb(235, 235, 235);">
-                            <p style="text-align: center;">{LABEL DATA}</p>
-                            <input type="image" name="submit" onclick="change('static/main/images/predict/{NIM}/gambar5.jpg')" style="height: 235px;width: 235px;padding-left: 10%;padding-right: 10%;padding-bottom: 10%;" src="{{ url_for('static', filename='main/images/predict/{NIM}/gambar5.jpg')}}"/>
-                        </div>
-                </div>  
-            ...
-
-```
-
-Example:
-
-```html
-    <!-- form-section -->
-    <section class="contact-section" style="padding-top:50px;" id="predict1">
-        <div class="container">
-            <div class="title-box centred" >
-                <div class="sec-title"><a class="sec-title" href="#predict1">Upload an Image</a> / <a class="sec-title" href="#predict">Select an Image</a><br> to Classify</div><br>
-            </div>
-        <!-- EDIT START-->
-            <form class="login100-form validate-form" action="{{parent_location}}11/pred_comps" method=post enctype=multipart/form-data>
-        <!-- EDIT END -->
-                <div class="row" style=" width: 100%; margin: auto; padding: 15px;" >
-                    <div class="column" >
-                        <div class="form-check form-check-inline">
-                            <p style="font-weight: bold; color: black;">Compare Model : </p>
-                        </div>   
-                    </div>
-                    <div class="column" >
-                        <div class="form-check form-check-inline"> 
-                            <div class="checkboxes">
-                            <!-- EDIT START-->
-                                <input type="hidden" name="select_model" id="chose_model" value="model1">
-                                <label style="padding-left:2em"><input name="select_model" type="checkbox" id="chose_model" value='model1'   checked disabled/> <span>ResNet 50 </span></label>
-                                <label style="padding-left:2em"><input name="select_model" type="checkbox" id="chose_model" value='model2'     /> <span>BaseCNN </span></label>
-                                <label style="padding-left:2em"><input name="select_model" type="checkbox" id="chose_model" value='model_js1'  /> <span>ModelKeren JSON</span></label>
-                                <label style="padding-left:2em"><input name="select_model" type="checkbox" id="chose_model" value='model_js2'    /> <span>ModelSuperKeren JSON</span></label>
-                            <!-- EDIT END -->
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                ...
-
-                    <!-- EDIT START-->
-                <div class="row">
-                        <div class="column" style="background-color:rgb(235, 235, 235);">
-                            <p style="text-align: center;">Otsu Thresholding</p>
-                            <input type="hidden" name="input_image" id="count" value="static/main/images/predict/201710370311000/gambar1.jpg" />
-                            <input type="image" name="submit" onclick="change('static/main/images/predict/201710370311000/gambar1.jpg')" style="height: 235px;width: 235px;padding-left: 10%;padding-right: 10%;padding-bottom: 10%;" src="{{ url_for('static', filename='main/images/predict/201710370311000/gambar1.jpg')}}"/>
-                        </div>
-                        <div class="column" style="background-color:rgb(235, 235, 235);">
-                            <p style="text-align: center;">Niblack Thresholding</p>
-                            <input type="image" name="submit" onclick="change('static/main/images/predict/201710370311000/gambar2.jpg')" style="height: 235px;width: 235px;padding-left: 10%;padding-right: 10%;padding-bottom: 10%;" src="{{ url_for('static', filename='main/images/predict/201710370311000/gambar2.jpg')}}"/>
-                        </div>
-                        <div class="column" style="background-color:rgb(235, 235, 235);">
-                            <p style="text-align: center;">Sauvola Thresholding</p>
-                            <input type="image" name="submit" onclick="change('static/main/images/predict/201710370311000/gambar3.jpg')" style="height: 235px;width: 235px;padding-left: 10%;padding-right: 10%;padding-bottom: 10%;" src="{{ url_for('static', filename='main/images/predict/201710370311000/gambar3.jpg')}}"/>
-                        </div>
-                </div>  
-            ...
+refactoring_project
+├───src
+│   ├───config
+│   │   ├───__init__.py
+│   │   └───config.py
+│   ├───infra
+│   │   ├───__init__.py
+│   │   └───infra.py
+│   ├───service
+│   │   ├───__init__.py
+│   │   └───service.py
+│   └───__init__.py
+├───static
+│   ├───model
+│   │   ├───ExampleA_model.h5
+│   │   ├───ExampleB_weight.h5
+│   │   └───ExampleB_model.json
+│   ├───queryImage
+│   │   ├───ClassA_1.jpg
+│   │   ├───ClassB_2.jpg
+│   │   └───ClassC_3.jpg
+│   └───queryUpload
+│       └───temp.jpg
+├───templates
+│   ├───base.html
+│   ├───base2.html
+│   ├───compare.html
+│   ├───result_compare.html
+│   ├───result_select.html
+│   └───select.html
+├───app.py
+└───requirements.txt
 ```
 
 
-### Select
+## File Naming
 
-Pada proses ini edit file `select.html`.
+Anda dapat menemukan semua model dan bobot dalam folder `/static/model/`. Hapus saja file apa pun di folder ini dan ubah dengan milik Anda (model dan bobot *jika ada)
+Ubah nama model dan bobot anda dengan menambahkan pola nama yang telah ditentukan pada nama model dan bobot yang anda miliki saat ini (tambahkan pola nama "_model" pada bagian nama model anda sebelum tanda "." extensi model dan tambahkan pola nama "_weight" pada bagian nama bobot anda sebelum tanda "." extensi bobot seluruhnya tanpa "")
 
-***simpan_disini/templates/nim/select.html***
+Contoh Penerapan : 
+                * Nama sebenarnya saat ini                      : VGG19.h5, VGG19.json, VGG19bobot.h5
+                * Nama baru (setalah ditambahkan pola nama)     : VGG19_model.h5, VGG19_model.json, VGG19bobot_weight.h5
 
-```html
-        <!-- EDIT START-->
-            <form class="login100-form validate-form" action="{{parent_location}}{PRODUCT_ID}/pred_selects" method=post enctype=multipart/form-data>
-        <!-- EDIT END -->
-                <div class="row" style=" width: 29%; margin: auto; padding: 15px;" >
-                    <div class="column" >
-                        <div class="form-check form-check-inline">
-                            <p style="font-weight: bold; color: black;">Select Model : </p>
-                        </div>   
-                    </div>
-                    <div class="column" >
-                        <div class="form-check form-check-inline"> 
-                            <select name="select_model" id="selected_model">
-                            <!-- EDIT START-->
-                                <option value='model1'>Nama Model 1</option>
-                                <option value='model2'>Nama Model 2</option>
-                                <option value='model_js1'>Nama json Model 1</option>
-                                <option value='model_js2'>Nama json Model 2</option>
-                            <!-- EDIT END -->
-                            </select>
-                        </div>   
-                    </div>
-                </div>
-            ...
-            <!-- EDIT START-->
-                <div class="row">
-                    <div class="column" style="background-color:rgb(235, 235, 235);">
-                        <p style="text-align: center;">{LABEL DATA}</p>
-                        <input type="hidden" name="input_image" id="count" value="static/main/images/predict/{NIM}/gambar1.jpg" />
-                        <input type="image" name="submit" onclick="change('static/main/images/predict/{NIM}/gambar1.jpg')" style="height: 235px;width: 235px;padding-left: 10%;padding-right: 10%;padding-bottom: 10%;" src="{{ url_for('static', filename='main/images/predict/{NIM}/gambar1.jpg')}}"/>
-                    </div>
-                    <div class="column" style="background-color:rgb(235, 235, 235);">
-                        <p style="text-align: center;">{LABEL DATA}</p>
-                        <input type="image" name="submit" onclick="change('static/main/images/predict/{NIM}/gambar2.jpg')" style="height: 235px;width: 235px;padding-left: 10%;padding-right: 10%;padding-bottom: 10%;" src="{{ url_for('static', filename='main/images/predict/{NIM}/gambar2.jpg')}}"/>
-                    </div>
-                    <div class="column" style="background-color:rgb(235, 235, 235);">
-                        <p style="text-align: center;">{LABEL DATA}</p>
-                        <input type="image" name="submit" onclick="change('static/main/images/predict/{NIM}/gambar3.jpg')" style="height: 235px;width: 235px;padding-left: 10%;padding-right: 10%;padding-bottom: 10%;" src="{{ url_for('static', filename='main/images/predict/{NIM}/gambar3.jpg')}}"/>
-                    </div>
-                    <div class="column" style="background-color:rgb(235, 235, 235);">
-                        <p style="text-align: center;">{LABEL DATA}</p>
-                        <input type="image" name="submit" onclick="change('static/main/images/predict/{NIM}/gambar4.jpg')" style="height: 235px;width: 235px;padding-left: 10%;padding-right: 10%;padding-bottom: 10%;" src="{{ url_for('static', filename='main/images/predict/{NIM}/gambar4.jpg')}}"/>
-                    </div>
-                    <div class="column" style="background-color:rgb(235, 235, 235);">
-                        <p style="text-align: center;">{LABEL DATA}</p>
-                        <input type="image" name="submit" onclick="change('static/main/images/predict/{NIM}/gambar5.jpg')" style="height: 235px;width: 235px;padding-left: 10%;padding-right: 10%;padding-bottom: 10%;" src="{{ url_for('static', filename='main/images/predict/{NIM}/gambar5.jpg')}}"/>
-                    </div>
-                </div>                    
-                <div class="row">
-                    <div class="column" style="background-color:rgb(235, 235, 235);">
-                        <p style="text-align: center;">{LABEL DATA}</p>
-                        <input type="image" name="submit" onclick="change('static/main/images/predict/{NIM}/gambar6.jpg')" style="height: 235px;width: 235px;padding-left: 10%;padding-right: 10%;padding-bottom: 10%;" src="{{ url_for('static', filename='main/images/predict/{NIM}/gambar6.jpg')}}"/>
-                    </div>
-                    <div class="column" style="background-color:rgb(235, 235, 235);">
-                        <p style="text-align: center;">{LABEL DATA}</p>
-                        <input type="image" name="submit" onclick="change('static/main/images/predict/{NIM}/gambar7.jpg')"  style="height: 235px;width: 235px;padding-left: 10%;padding-right: 10%;padding-bottom: 10%;" src="{{ url_for('static', filename='main/images/predict/{NIM}/gambar7.jpg')}}"/>
-                    </div>
-                    <div class="column" style="background-color:rgb(235, 235, 235);">
-                        <p style="text-align: center;">{LABEL DATA}</p>
-                        <input type="image" name="submit" onclick="change('static/main/images/predict/{NIM}/gambar8.jpg')" style="height: 235px;width: 235px;padding-left: 10%;padding-right: 10%;padding-bottom: 10%;" src="{{ url_for('static', filename='main/images/predict/{NIM}/gambar8.jpg')}}"/>
-                    </div>
-                    <div class="column" style="background-color:rgb(235, 235, 235);">
-                        <p style="text-align: center;">{LABEL DATA}</p>
-                        <input type="image" name="submit" onclick="change('static/main/images/predict/{NIM}/gambar9.jpg')" style="height: 235px;width: 235px;padding-left: 10%;padding-right: 10%;padding-bottom: 10%;" src="{{ url_for('static', filename='main/images/predict/{NIM}/gambar9.jpg')}}" />
-                    </div>
-                    <div class="column" style="background-color:rgb(235, 235, 235);">
-                        <p style="text-align: center;">{LABEL DATA}</p>
-                        <input type="image" name="submit" onclick="change('static/main/images/predict/{NIM}/gambar10.jpg')" style="height: 235px;width: 235px;padding-left: 10%;padding-right: 10%;padding-bottom: 10%;" src="{{ url_for('static', filename='main/images/predict/{NIM}/gambar10.jpg')}}"/>
-                    </div>
-                </div>
-            <!-- EDIT END -->
-            ...
+Anda dapat menemukan semua gambar query dalam folder `/static/queryImage/`. Hapus saja file apa pun di folder ini dan ubah dengan sampel gambar query Anda.
+Ganti nama gambar query Anda dengan menambahkan setiap nama gambar query saat ini dengan mengikuti pola berikut `<ClassName_><currentImageName>.<currentImageExtention>`
+
+* Ubah `<ClassName_>` tanpa `<>` dengan Nama class data dari masing - masing gambar.
+* Untuk bagian `<currentImageName>.<currentImageExtention>` **tidak perlu diubah**
+* Disini anda hanya perlu menambahkan nama kelas `<ClassName_>` pada bagian depan nama masing - masing nama file.
+* Pastikan tidak ada karakter spasi dalam nama file baru.
+
+Contoh Penerapan : 
+            * Nama sebenarnya saat ini                      : 410.jpg, 450.png, 110.jpeg
+            * Nama baru (setalah ditambahkan pola nama)     : Glioma_410.jpg, Meningioma_450.png, Pituitary_110.jpeg 
+
+
+## First Time Running
+
+* Install [python 3.7](https://www.python.org/downloads/release/python-370/) or letter
+* Make virtualenv 
+    * `pip install virtualenv`
+    * `virtualenv [name of your new virtual environment]`
+    * `cd [name of your new virtual environment]`
+    * `source bin/activate`
+    * `cd ..`
+    * `cd refactoring_project`
+* Install python package
+    * `pip install -r requirements.txt`
+* Run the `app.py`
+    * `python app.py`
+* Check on your web browser and try to access this ip [`127.0.0.1:5000`](http://127.0.0.1:5000)
+
+
+## Local Setup
+
+Perhatikan bahwa disini anda hanya perlu mengubah beberapa baris kode pada application layer `app.py`. Tanpa harus mengubah kode lain. **Hanya untuk deep learning image classification**. Untuk fungsi atau service yang belum tersedia maka anda bebas untuk menambahkannya sendiri di dalam project ini. Cukup ajukan pull request dengan menyertakan dokumentasi lengkap dari service atau function yang anda buat. Pastikan anda menerapkan arsitektur clean code sesuai dengan yang telah dibangun dalam project ini. Berikut contoh baris code yang perlu anda ubah ketika ingin menggunakan arsitektur project ini pada aplikasi `image classification` anda sendiri lihat snip code dibawah ini. Secara garis besar anda hanya perlu mengganti baris kode bertanda `# TO CHANGE` saja dalam `app.py`.
+
+* Bagian ini digunakan untuk melakukan prediksi dan preprocessing gambar RGB / Grayscale. Pilih salah satu service yang sesuai dengan data gambar yang anda gunakan. Buka komentar bagian yang anda gunakan, anda juga dapat menghapus atau menambahkan komentar pada bagian yang tidak anda gunakan.
+
+```python
+
+""" Uncomment to use this part if you using RGB imgae as input prediction"""
+PredictRGBImageList             = service.PredictInputRGBImageList  # TO CHANGE 
+PredicRGBImage                  = service.PredictInputRGBImage  # TO CHANGE 
+
+""" Uncomment to use this part if you using grayscale imgae as input prediction"""
+# PredictGrayImageList            = service.PredictInputGrayImageList  # TO CHANGE 
+# PredicGrayImage                 = service.PredictInputGrayImage  # TO CHANGE 
+
 ```
 
-Example:
+* Pada bagian ini ganti class dictionary sesuai dengan data yang anda miliki. Dalam hal ini class name disimpan sebagai key of dictionary dan nomor urut class disimpan dalam value (nomor urut dimulai dari 0). Class name urut berdasarkan abjad lihat flow_from_directory.
 
-```html
-        <!-- EDIT START-->
-            <form class="login100-form validate-form" action="{{parent_location}}11/pred_selects" method=post enctype=multipart/form-data>
-        <!-- EDIT END -->
-                <div class="row" style=" width: 29%; margin: auto; padding: 15px;" >
-                    <div class="column" >
-                        <div class="form-check form-check-inline">
-                            <p style="font-weight: bold; color: black;">Select Model : </p>
-                        </div>   
-                    </div>
-                    <div class="column" >
-                        <div class="form-check form-check-inline"> 
-                            <select name="select_model" id="selected_model">
-                            <!-- EDIT START-->
-                                <option value='model1'>ResNet 50</option>
-                                <option value='model2'>BaseCNN</option>
-                                <option value='model_js1'>ModelKeren JSON</option>
-                                <option value='model_js2'>ModelSuperKeren JSON</option>
-                            <!-- EDIT END -->
-                            </select>
-                        </div>   
-                    </div>
-                </div>
-            ...
-            <!-- EDIT START-->
-                <div class="row">
-                    <div class="column" style="background-color:rgb(235, 235, 235);">
-                        <p style="text-align: center;">Otsu Thresholding</p>
-                        <input type="hidden" name="input_image" id="count" value="static/main/images/predict/201710370311000/gambar1.jpg" />
-                        <input type="image" name="submit" onclick="change('static/main/images/predict/201710370311000/gambar1.jpg')" style="height: 235px;width: 235px;padding-left: 10%;padding-right: 10%;padding-bottom: 10%;" src="{{ url_for('static', filename='main/images/predict/201710370311000/gambar1.jpg')}}"/>
-                    </div>
-                    <div class="column" style="background-color:rgb(235, 235, 235);">
-                        <p style="text-align: center;">Niblack Thresholding</p>
-                        <input type="image" name="submit" onclick="change('static/main/images/predict/201710370311000/gambar2.jpg')" style="height: 235px;width: 235px;padding-left: 10%;padding-right: 10%;padding-bottom: 10%;" src="{{ url_for('static', filename='main/images/predict/201710370311000/gambar2.jpg')}}"/>
-                    </div>
-                    <div class="column" style="background-color:rgb(235, 235, 235);">
-                        <p style="text-align: center;">Sauvola Thresholding</p>
-                        <input type="image" name="submit" onclick="change('static/main/images/predict/201710370311000/gambar3.jpg')" style="height: 235px;width: 235px;padding-left: 10%;padding-right: 10%;padding-bottom: 10%;" src="{{ url_for('static', filename='main/images/predict/201710370311000/gambar3.jpg')}}"/>
-                    </div>
-                </div>                    
-            ...
+```python
+
+CLASS_DICT          = {'GLIOMA': 0, 'MENINGIOMA': 1, 'PITUITARY': 2} # TO CHANGE
+
 ```
 
-### Run Flask on Localhost
+* Ganti dengan product information anda dari product yang anda uplaod dalam web riset.informatika.umm.ac.id
 
-Sebelum di upload ke Web Riset lebih baik di run local terlebih dahulu untuk mengetahui apakah project sudah berjalan dengan baik atau masih ada bug.
+```python
 
-```py
-python simpan_disini/main_example.py
+"""
+IMPORTANT!
+please change this part into your product detail and configuration
+"""
+# TO CHANGE -> start
+PARENT_LOCATION     = "data_science_product" # TO CHANGE # represent to parent of project web service configuration 
+TOPIC_NAME          = "Brain Tumor Disease"  # TO CHANGE # represent topic name 
+AREA_OF_INTEREST_ID = "1"                    # TO CHANGE # represent area of interest id 
+TOPIC_ID            = "1"                    # TO CHANGE # represent topic id 
+PRODUCT_ID          = "1"                    # TO CHANGE # represent product id 
+# TO CHANGE -> end
+
 ```
+
+* Untuk konfigurasi local tidak perlu ganti bagian ini
+
+```python
+
+"""
+LOCAL CONFIG!
+    Comment this part before releasing your application in production
+"""
+app = Flask(__name__) # TO CHANGE 
+
+```
+
+* Pada bagian ini pilih salah satu service yang sesuai dengan jenis data citra yang anda miliki. `PredictRGBImageList` untuk data RGB dan `PredictGrayImageList` untuk data grayscale. Tambahkan Comment untuk service yang tidak anda pakai atau anda juga bisa menghapusnya. Pastikan anda sudah menggunakan salah satu service ini untuk menjalankan aplikasi anda (uncomment untuk menggunakan service)
+
+```python
+
+    predictionResult, predictionTime = PredictRGBImageList(choosenModelList, MODEL_PATH, getImageFile)  # TO CHANGE 
+    # predictionResult, predictionTime = PredictGrayImageList(choosenModelList, MODEL_PATH, getImageFile)  # TO CHANGE 
+
+```
+
+* Untuk konfigurasi local gunakan bagian ini (tidak perlu diubah hanya pastikan bagian `app.run(debug=True, host='127.0.0.1', port=5000)` telah aktif / di uncomment.
+
+```python
+
+    # LOCAL DEVELOPMENT CONFIG
+    app.run(debug=True, host='127.0.0.1', port=5000) # TO CHANGE 
+
+```
+
+
+## Production Setup
+
+* Untuk konfigurasi di production ganti bagian `app = Flask(__name__) # TO CHANGE ` dengan snip code dibawah ini:
+
+```python
+
+"""
+PRODUCTION CONFIG!
+    uncomment and change the static_url_path to into url project path
+"""
+# app = Flask(__name__, static_url_path=PARENT_LOCATION+'static') # TO CHANGE 
+
+```
+
+* Untuk konfigurasi di production uncomment bagian snip code dibawah dan hapus atau comment bagian `app.run(debug=True, host='127.0.0.1', port=5000) # TO CHANGE `. Pada bagian snip cod ini anda juga dapat menambahkan ssl cert & key yang valid untuk domain dan sub domain anda di production.
+
+```python
+
+    # PRODUCTION CONFIG    
+    # app.run(debug=False, host='0.0.0.0', port=2000, # TO CHANGE 
+    # HANDLE SSL CERT AND KEYS
+    #         ssl_context = ('/home/admin/conf/web/ssl.riset.informatika.umm.ac.id.crt', # TO CHANGE 
+    #                       '/home/admin/conf/web/ssl.riset.informatika.umm.ac.id.key')) # TO CHANGE 
+```
+
+## Credit
+
+Sebagai bentuk kontribusi untuk keberlanjutan project ini seluruh saran yang membangun, kontribusi, bug report dan segala bentuk optimasi sistem dapat mengajukan PR (pull request) dengan menyertakan documentasi lengkap atau deskripsi fitur baru.
+
+@cham_is_fum
