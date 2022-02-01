@@ -56,7 +56,7 @@ refactoring_project
     * `pip install -r requirements.txt`
 * Run the `app.py`
     * `python app.py`
-* Check on your web browser and try to access this ip [`127.0.0.1:5000`](127.0.0.1:5000)
+* Check on your web browser and try to access this ip [127.0.0.1:5000](127.0.0.1:5000)
 
 ```python
 
