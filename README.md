@@ -1,5 +1,5 @@
 # Project Documentation
-**Clean Code IRC Implementation**
+**Clean Code Implementation**
 
 
 ## Motivation and Brief
@@ -202,4 +202,4 @@ PRODUCTION CONFIG!
 
 Sebagai bentuk kontribusi untuk keberlanjutan project ini seluruh saran yang membangun, kontribusi, bug report dan segala bentuk optimasi sistem dapat mengajukan PR (pull request) dengan menyertakan documentasi lengkap atau deskripsi fitur baru.
 
-@cham_is_fum
+[@cham_is_fum](https://github.com/chamisfum)
