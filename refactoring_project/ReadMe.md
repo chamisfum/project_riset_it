@@ -52,7 +52,7 @@ refactoring_project
     * `source bin/activate`
     * `cd ..`
     * `cd refactoring_project`
-* Install python requirements package
+* Install python package
     * `pip install -r requirements.txt`
 * Run the `app.py`
     * `python app.py`
