@@ -93,8 +93,8 @@ Perhatikan bahwa disini anda hanya perlu mengubah beberapa baris kode pada appli
 ```python
 
 """ Uncomment to use this part if you using RGB imgae as input prediction"""
-# PredictRGBImageList             = service.PredictInputRGBImageList  # TO CHANGE 
-# PredicRGBImage                  = service.PredictInputRGBImage  # TO CHANGE 
+PredictRGBImageList             = service.PredictInputRGBImageList  # TO CHANGE 
+PredicRGBImage                  = service.PredictInputRGBImage  # TO CHANGE 
 
 """ Uncomment to use this part if you using grayscale imgae as input prediction"""
 # PredictGrayImageList            = service.PredictInputGrayImageList  # TO CHANGE 
@@ -161,7 +161,7 @@ app = Flask(__name__) # TO CHANGE
 
 ## Production Setup
 
-* Untuk konfigurasi di production ganti bagian ini `app = Flask(__name__) # TO CHANGE ` dengan snip code dibawah ini:
+* Untuk konfigurasi di production ganti bagian `app = Flask(__name__) # TO CHANGE ` dengan snip code dibawah ini:
 
 ```python
 
@@ -173,7 +173,7 @@ PRODUCTION CONFIG!
 
 ```
 
-* Untuk konfigurasi di production uncomment bagian ini dan hapus atau comment bagian `app.run(debug=True, host='127.0.0.1', port=5000) # TO CHANGE `. Pada bagian ini anda akan menambahkan ssl cert dan key yang valid untuk domain dan sub domain anda.
+* Untuk konfigurasi di production uncomment bagian snip code dibawah dan hapus atau comment bagian `app.run(debug=True, host='127.0.0.1', port=5000) # TO CHANGE `. Pada bagian snip cod ini anda juga dapat menambahkan ssl cert & key yang valid untuk domain dan sub domain anda di production.
 
 ```python
 
