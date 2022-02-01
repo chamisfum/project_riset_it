@@ -64,7 +64,7 @@ refactoring_project
 Anda dapat menemukan semua model dan bobot dalam folder `/static/model/`. Hapus saja file apa pun di folder ini dan ubah dengan milik Anda (model dan bobot *jika ada)
 Ubah nama model dan bobot anda dengan menambahkan pola nama yang telah ditentukan pada nama model dan bobot yang anda miliki saat ini (tambahkan pola nama "_model" pada bagian nama model anda sebelum tanda "." extensi model dan tambahkan pola nama "_weight" pada bagian nama bobot anda sebelum tanda "." extensi bobot seluruhnya tanpa "")
 
-**Contoh Penerapan :**
+* **Contoh Penerapan :**
     * Nama sebenarnya saat ini                      : VGG19.h5, VGG19.json, VGG19bobot.h5
     * Nama baru (setalah ditambahkan pola nama)     : VGG19_model.h5, VGG19_model.json, VGG19bobot_weight.h5
 
@@ -76,7 +76,7 @@ Ganti nama gambar query Anda dengan menambahkan setiap nama gambar query saat in
 * Disini anda hanya perlu menambahkan nama kelas `<ClassName_>` pada bagian depan nama masing - masing nama file.
 * Pastikan tidak ada karakter spasi dalam nama file baru.
 
-**Contoh Penerapan :**
+* **Contoh Penerapan :**
     * Nama sebenarnya saat ini                      : 410.jpg, 450.png, 110.jpeg
     * Nama baru (setalah ditambahkan pola nama)     : Glioma_410.jpg, Meningioma_450.png, Pituitary_110.jpeg 
 
