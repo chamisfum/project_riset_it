@@ -1,2 +1,0 @@
-Buat file nim_requrement.txt
-pastikan sebelum membuat file ini anda sudah mengaktifkan environment python khusus untuk program yang anda uplaod ke web riset

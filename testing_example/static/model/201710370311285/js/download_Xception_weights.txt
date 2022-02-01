@@ -1,3 +1,0 @@
-Download file Xception_weights.h5 menggunakan link berikut ini 
-https://drive.google.com/file/d/1Gv6cRDtRaHmJjom4Y4AOsuWHRZvxL1jT/view?usp=sharing
- 
