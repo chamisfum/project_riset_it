@@ -42,7 +42,7 @@ refactoring_project
 └───requirements.txt
 ```
 
-## RUn For The First Time 
+## Run For The First Time 
 
 * Install python 3.7 or letter
 * Make virtualenv 
