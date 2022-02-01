@@ -8,7 +8,7 @@ Project ini menyediakan package module python untuk melakukan deployment model `
 
 ```html
 
-REFACTORING_PROJECT
+refactoring_project
 ├───src
 │   ├───config
 │   │   ├───__init__.py
