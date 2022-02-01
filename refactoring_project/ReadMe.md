@@ -44,6 +44,18 @@ refactoring_project
 
 ## Prerequisite 
 
+* Install python 3.7 or letter
+* Make virtualenv 
+    * `pip install virtualenv`
+    * `virtualenv [name of your new virtual environment]`
+    * `cd [name of your new virtual environment]`
+    * `source bin/activate`
+
+```python
+
+
+```
+
 # Documentation
 
 This part is an application for deploying image classification using Deep Learning algorithm. 
