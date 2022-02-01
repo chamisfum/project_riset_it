@@ -19,7 +19,7 @@ TO CHANGE FILE
 Beside you change any line of code in this application layer, you were also need to change some files like models, weights, and query images sample
 
 You can find all models and weights in /static/model/ folder. Just delete any file in this folder and change with yours (models and weights *if any)
-Rename your models an weight by adding the current name with "_model" and "_weight" without "" after the current name 
+Rename your models and weight by adding the current name with "_model" and "_weight" without "" after the current name 
 
 FOR EXAMPLE : 
             * current name : VGG19.h5, VGG19.json, VGG19bobot.h5
@@ -37,8 +37,6 @@ FOR EXAMPLE :
 """
 
 # python package
-# import requests
-# assert requests.get('https://github.com/nvbn/import_from_github_com').status_code == 200
 from flask import Flask, request, render_template
 
 # internal package
