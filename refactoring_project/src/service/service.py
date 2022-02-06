@@ -20,7 +20,7 @@ _loadSelectModel           = config._loadSelectModel
 _loadCompareModel          = config._loadCompareModel
 _grayImageProcessing       = config._grayImageProcessing
 _rgbImageProcessing        = config._rgbImageProcessing
-_getDictModel              = config._getDictModel
+GetDictModel               = config._getDictModel
 
 _differentTime             = infra._getDifferentTime
 _getCollectionFiles        = infra._getFilesFromFolder
