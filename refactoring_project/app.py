@@ -162,7 +162,7 @@ def predicts_compare():
     # predictionResult, predictionTime = PredictGrayImageList(choosenModelList, MODEL_PATH, getImageFile)  # TO CHANGE 
     return render_template('/result_compare.html', labels = LABELS, probs = predictionResult, parent_location = PARENT_LOCATION,
                             topic_name = TOPIC_NAME, aoi_id = AREA_OF_INTEREST_ID, topic_id = TOPIC_ID, 
-                            product_id = PRODUCT_ID, model = choosenModelList, run_time = predictionTime, img = relocationImageFile)
+                            product_id = PRODUCT_ID, model = choosenModelList, run_time = predictionTime, img = relocationImageFile[7:])
 
 @app.route('/select')
 def select():
@@ -217,7 +217,7 @@ def predicts_select():
     # predictionResult, predictionTime = PredicGrayImage(choosenModel, MODEL_PATH, getImageFile)  # TO CHANGE 
     return render_template('/result_select.html', labels = LABELS, probs = predictionResult, parent_location = PARENT_LOCATION,
                             topic_name = TOPIC_NAME, aoi_id = AREA_OF_INTEREST_ID, topic_id = TOPIC_ID, 
-                            product_id = PRODUCT_ID, model = choosenModel, run_time = predictionTime, img = relocationImageFile)
+                            product_id = PRODUCT_ID, model = choosenModel, run_time = predictionTime, img = relocationImageFile[7:])
 
 if __name__ == "__main__": 
     # LOCAL DEVELOPMENT CONFIG
