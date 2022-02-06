@@ -4,7 +4,7 @@ DOCUMENTATION:
 
 service layer use to provide a data processing that needed by user request. This layer can be used as 
 service provider for application layer to provide several data. This layer would use several config 
-backend as main helper to build each service. Validation data will not appeare here, the validation is only on configuration layer.
+backend as main helper to build each service.
 
 """
 
@@ -20,7 +20,7 @@ _loadSelectModel           = config._loadSelectModel
 _loadCompareModel          = config._loadCompareModel
 _grayImageProcessing       = config._grayImageProcessing
 _rgbImageProcessing        = config._rgbImageProcessing
-_getDictModel              = config._getDictModel
+_getDictModel               = config._getDictModel
 
 _differentTime             = infra._getDifferentTime
 _getCollectionFiles        = infra._getFilesFromFolder
