@@ -66,7 +66,7 @@ Ubah nama model dan bobot anda dengan menambahkan pola nama yang telah ditentuka
 
 ### Contoh Penerapan :
 * **Nama sebenarnya saat ini :**                   VGG19.h5, VGG19.json, VGG19bobot.h5
-* Nama baru (setalah ditambahkan pola nama) :**    VGG19_model.h5, VGG19_model.json, VGG19bobot_weight.h5
+* **Nama baru (setalah ditambahkan pola nama) :**    VGG19_model.h5, VGG19_model.json, VGG19bobot_weight.h5
 
 Anda dapat menemukan semua gambar query dalam folder `/static/queryImage/`. Hapus saja file apa pun di folder ini dan ubah dengan sampel gambar query Anda.
 Ganti nama gambar query Anda dengan menambahkan setiap nama gambar query saat ini dengan mengikuti pola berikut `<ClassName_><currentImageName>.<currentImageExtention>`
