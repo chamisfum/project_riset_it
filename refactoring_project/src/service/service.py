@@ -4,7 +4,7 @@ DOCUMENTATION:
 
 service layer use to provide a data processing that needed by user request. This layer can be used as 
 service provider for application layer to provide several data. This layer would use several config 
-backend as main helper to build each service.
+backend as main helper to build each service. Validation data will not appeare here, the validation is only on configuration layer.
 
 """
 
