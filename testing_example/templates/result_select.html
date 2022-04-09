@@ -1,0 +1,76 @@
+{% extends 'base2.html' %}
+{% block content %}
+
+    <!-- page-title -->
+    <section class="page-title centred" style="background-image: url(../static/main/images/background/page-title.jpg);">
+        <div class="container">
+            <div class="content-box">
+                <div class="title">Research Product Details</div>
+                <ul class="bread-crumb">
+                    <li><a href="https://riset.informatika.umm.ac.id">Home</a></li>
+                    <li><a href="https://riset.informatika.umm.ac.id/area_of_interest/1">Data Science</a></li>
+                    <li><a href="https://riset.informatika.umm.ac.id/area_of_interest/topics/1">Research Topics</a></li>
+                    <li><a href="https://riset.informatika.umm.ac.id/area_of_interest/topics/all">Brain Tumor Disease</a></li>
+                    <li><a href=/">Predict</a></li>
+                    <li><a href="/compare">Compare</a></li>
+                </ul>
+            </div>
+        </div>
+    </section>
+    <!-- page-title end -->
+
+    <!-- Table-section -->
+    <section class="contact-section" id="result" style="padding-bottom: 50px;">
+        <div class="container">
+            <div class="title-box centred" >
+                <div class="sec-title">Probability Table</div>
+            </div>
+            <div class="table-responsive">          
+                <table class="table">
+                  <thead>
+                    <tr>
+                      <th style="font-size:22px;font-weight: bold;text-align: left;">#</th>
+                      <th style="font-size:22px;font-weight: bold;text-align: left;padding-left: 20px;">Label</th>
+                      <th style="font-size:22px;font-weight: bold;text-align: center;">Confidance (%)</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    {% for label in labels %}
+                    <tr>
+                      <td style="font-size:18px;text-align: left;">{{ labels.index(label) }}</td>
+                      <td style="font-size:18px;text-align: left;padding-left: 20px;">{{ label }}</td>
+                      <td style="font-size:18px;text-align: right;">{{ probs[labels.index(label)] }}</td>
+                    </tr>
+                    {% endfor %}
+                  </tbody>
+                </table>
+            </div>
+            <div class="title-box centred" style="padding-top: 75px; padding-bottom: 50px;">
+                <div class="sec-title">Prediction Result</div>
+            </div>
+            <div class="row" >
+                <div class="col-lg-8 col-md-12 col-sm-12 content-column">
+                    <div class="inner-content">
+                        <div class="contact-form-area">
+                            <p style="margin: unset; padding: none; color: black; text-transform: capitalize; font-size: 25px; font-weight: bold;">{{ model }} Model</p> 
+                            <p style="margin: unset; padding: none; color: black; text-transform: capitalize; font-size: medium; font-weight: bold;"> {{ labels[pred] }}</p> 
+                            Confidance : {{ (probs|max) }}% | Prediction Time : {{ (run_time) }} second
+                            <input type="hidden" id="probability" value={{(probs|max)}}> 
+                            <div id="myProgress">
+                                <div id="myBar">0%</div>
+                            </div> 
+                        </div>
+                    </div>
+                </div>
+                <div class="col-lg-4 col-md-12 col-sm-12 sidebar-column">
+                    <div class="sidebar-content">
+                        <img src="{{ url_for('static', filename=img) }}" alt="" class="img-fluid" style="height:300px; width:300px;">
+                        <p style="font-size:25px;text-align:center;">Input Image</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+    <!-- final-section end -->
+
+    {% endblock %}
